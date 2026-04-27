@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-for-jobboard/', admin.site.urls),
     path('', include('jobs.urls')),  # All our app URLs will go here
     # path('auth/', include('social_django.urls', namespace='social')),
 ]
