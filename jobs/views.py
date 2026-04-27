@@ -602,3 +602,13 @@ def send_welcome_email(user):
 
 # Call this after creating user in register view
 # send_welcome_email(user)
+
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+
+def create_admin(request):
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@jobboard.com', 'admin123')
+        return HttpResponse("Superuser created! Username: admin, Password: admin123")
+    return HttpResponse("Superuser already exists!")

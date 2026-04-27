@@ -41,6 +41,7 @@ urlpatterns = [
     path('save-job/<int:job_id>/', views.save_job, name='save_job'),
     path('saved-jobs/', views.saved_jobs, name='saved_jobs'),
     path('remove-saved-job/<int:job_id>/', views.remove_saved_job, name='remove_saved_job'),
+    path('create-admin/', views.create_admin, name='create_admin'),
 ]
 
 if settings.DEBUG:
