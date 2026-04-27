@@ -1,0 +1,53 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Profile - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="card-bg rounded-2xl p-8">
+        <div class="flex items-center space-x-6 mb-8">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" class="w-24 h-24 rounded-full object-cover">
+            {% else %}
+                <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-4xl text-white">
+                    {{ user.username|make_list|first|upper }}
+                </div>
+            {% endif %}
+            <div>
+                <h1 class="text-3xl font-bold text-white">{{ user.get_full_name|default:user.username }}</h1>
+                <p class="text-purple-400">{{ user.user_type|title }}</p>
+                {% if user.company_name %}<p class="text-gray-300">{{ user.company_name }}</p>{% endif %}
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-3">Contact Information</h3>
+                <div class="space-y-2 text-gray-300">
+                    <p><i class="fas fa-envelope w-6"></i> {{ user.email }}</p>
+                    <p><i class="fas fa-phone w-6"></i> {{ user.phone_number|default:"Not provided" }}</p>
+                    <p><i class="fas fa-map-marker-alt w-6"></i> {{ user.location|default:"Not provided" }}</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-3">About</h3>
+                <p class="text-gray-300">{{ user.bio|default:"No bio yet. Click edit to add one." }}</p>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="{% url 'edit_profile' %}" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition inline-block">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-bg {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Post a Job - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="card-bg rounded-2xl p-8">
+        <h2 class="text-3xl font-bold text-center text-white mb-6">Post a New Job</h2>
+        
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-gray-300 mb-2">Job Title *</label>
+                <input type="text" name="title" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+            </div>
+            
+            <div>
+                <label class="block text-gray-300 mb-2">Location *</label>
+                <input type="text" name="location" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="e.g., New York, NY or Remote">
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300 mb-2">Minimum Salary</label>
+                    <input type="number" name="salary_min" step="1000" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="$50,000">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Maximum Salary</label>
+                    <input type="number" name="salary_max" step="1000" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="$80,000">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300 mb-2">Job Type *</label>
+                    <select name="job_type" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                        <option value="full_time">Full Time</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="contract">Contract</option>
+                        <option value="remote">Remote</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Category *</label>
+                    <select name="category" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                        <option value="tech">Technology</option>
+                        <option value="finance">Finance</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="education">Education</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="design">Design</option>
+                        <option value="sales">Sales</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-gray-300 mb-2">Job Description *</label>
+                <textarea name="description" rows="5" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="Describe the role, responsibilities, and what the candidate will do..."></textarea>
+            </div>
+            
+            <div>
+                <label class="block text-gray-300 mb-2">Requirements *</label>
+                <textarea name="requirements" rows="5" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="List required skills, experience, education..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition mt-4">
+                Post Job
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

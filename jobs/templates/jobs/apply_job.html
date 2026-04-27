@@ -1,0 +1,78 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Apply for {{ job.title }} - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-8">
+    <div class="bg-white/10 backdrop-blur rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-2">Apply for {{ job.title }}</h2>
+        <p class="text-purple-400 mb-6">{{ job.employer.company_name|default:job.employer.username }}</p>
+        
+        <form method="POST" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-gray-300 mb-2">Cover Letter *</label>
+                <textarea name="cover_letter" rows="6" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="Why are you a good fit for this role?"></textarea>
+                <p class="text-gray-400 text-sm mt-1" id="char-counter">1000 characters remaining</p>
+            </div>
+            
+            {% if has_resumes %}
+            <div>
+                <label class="block text-gray-300 mb-2">Select a saved resume</label>
+                <select name="resume_id" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                    <option value="">-- Select an existing resume --</option>
+                    {% for resume in resumes %}
+                    <option value="{{ resume.id }}" {% if resume.is_primary %}selected{% endif %}>
+                        {{ resume.title }} ({{ resume.uploaded_at|date:"M d, Y" }}) {% if resume.is_primary %} - Primary{% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+                <div class="mt-2 text-right">
+                    <a href="{% url 'manage_resumes' %}" class="text-purple-400 text-sm hover:text-purple-300 transition">
+                        <i class="fas fa-upload"></i> Manage my resumes
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative my-4">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-white/20"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white/10 backdrop-blur text-gray-400">OR</span>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div>
+                <label class="block text-gray-300 mb-2">{% if has_resumes %}Upload a new resume (optional){% else %}Upload your resume *{% endif %}</label>
+                <input type="file" name="resume" accept=".pdf,.doc,.docx" {% if not has_resumes %}required{% endif %} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white file:bg-purple-600 file:text-white file:px-4 file:py-2 file:rounded file:border-0">
+                <p class="text-gray-400 text-xs mt-1">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+            </div>
+            
+            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition mt-4">
+                Submit Application
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const coverLetter = document.querySelector('textarea[name="cover_letter"]');
+    if (coverLetter) {
+        coverLetter.addEventListener('input', function() {
+            const remaining = 1000 - this.value.length;
+            const counter = document.getElementById('char-counter');
+            if (counter) {
+                counter.textContent = `${remaining} characters remaining`;
+                if (remaining < 0) {
+                    counter.classList.add('text-red-400');
+                } else {
+                    counter.classList.remove('text-red-400');
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

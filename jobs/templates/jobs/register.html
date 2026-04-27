@@ -1,0 +1,361 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Register - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-8">
+    <div class="bg-white/10 backdrop-blur rounded-2xl p-8">
+        <!-- Progress Steps -->
+        <div class="flex justify-between mb-8">
+            <div class="text-center flex-1">
+                <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mx-auto mb-2" id="step1-indicator">1</div>
+                <p class="text-xs text-gray-400">Account</p>
+            </div>
+            <div class="text-center flex-1">
+                <div class="w-8 h-8 rounded-full bg-white/20 text-gray-400 flex items-center justify-center mx-auto mb-2" id="step2-indicator">2</div>
+                <p class="text-xs text-gray-400">Profile</p>
+            </div>
+            <div class="text-center flex-1">
+                <div class="w-8 h-8 rounded-full bg-white/20 text-gray-400 flex items-center justify-center mx-auto mb-2" id="step3-indicator">3</div>
+                <p class="text-xs text-gray-400">Role</p>
+            </div>
+        </div>
+        
+        <!-- Step 1: Account Info -->
+        <div id="step1" class="step">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Create your account</h2>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" id="first_name" placeholder="First name *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                    <input type="text" id="last_name" placeholder="Last name *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                </div>
+                <input type="email" id="email" placeholder="Email address *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <input type="text" id="username" placeholder="Username *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <input type="password" id="password1" placeholder="Password *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <input type="password" id="password2" placeholder="Confirm password *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+            </div>
+            <button onclick="nextStep()" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition mt-6">
+                Next
+            </button>
+            <p class="text-xs text-gray-400 text-center mt-4">* Required fields</p>
+        </div>
+        
+        <!-- Step 2: Profile Info -->
+        <div id="step2" class="step" style="display: none;">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Profile Information</h2>
+            <p class="text-gray-400 text-center text-sm mb-4">These fields are optional - you can skip</p>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-300 mb-2">Profile Picture</label>
+                    <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white file:bg-purple-600 file:text-white file:px-4 file:py-2 file:rounded file:border-0">
+                </div>
+                <input type="tel" id="phone_number" placeholder="Phone number" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <input type="text" id="location" placeholder="Location (e.g., New York, NY)" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <textarea id="bio" rows="3" placeholder="Short bio (optional)" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white"></textarea>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevStep()" class="flex-1 bg-white/10 text-white py-3 rounded-lg font-semibold hover:bg-white/20 transition">Back</button>
+                <button onclick="nextStep2()" class="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">Next</button>
+            </div>
+        </div>
+        
+        <!-- Step 3: Role Selection -->
+        <div id="step3" class="step" style="display: none;">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">I'm a...</h2>
+            <div class="space-y-4">
+                <button type="button" onclick="selectRole('job_seeker')" class="w-full p-4 bg-white/10 border border-white/20 rounded-lg hover:bg-purple-600/50 transition text-left">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-user-graduate text-2xl text-purple-400"></i>
+                        <div>
+                            <p class="font-semibold text-white">Job Seeker</p>
+                            <p class="text-sm text-gray-400">Looking for job opportunities</p>
+                        </div>
+                    </div>
+                </button>
+                <button type="button" onclick="selectRole('employer')" class="w-full p-4 bg-white/10 border border-white/20 rounded-lg hover:bg-purple-600/50 transition text-left">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-building text-2xl text-purple-400"></i>
+                        <div>
+                            <p class="font-semibold text-white">Employer</p>
+                            <p class="text-sm text-gray-400">Hiring for my company</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevStep2()" class="flex-1 bg-white/10 text-white py-3 rounded-lg font-semibold hover:bg-white/20 transition">Back</button>
+            </div>
+        </div>
+        
+        <!-- Company Name Field (for employers) -->
+        <div id="company_field" style="display: none;" class="mt-6">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Company Details</h2>
+            <input type="text" id="company_name" placeholder="Company name *" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+            <div class="flex gap-3 mt-4">
+                <button onclick="submitEmployer()" class="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">Complete Registration</button>
+                <button onclick="hideCompanyField()" class="flex-1 bg-white/10 text-white py-3 rounded-lg font-semibold hover:bg-white/20 transition">Back</button>
+            </div>
+        </div>
+        
+        <!-- Resume Upload for Job Seekers -->
+        <div id="resume_field" style="display: none;" class="mt-6">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Almost done!</h2>
+            <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-4">
+                <p class="text-gray-300 text-center">You can upload your resume now or add it later</p>
+            </div>
+            <label class="block text-gray-300 mb-2">Upload Resume (Optional)</label>
+            <input type="file" id="resume_file" accept=".pdf,.doc,.docx" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+            <div class="flex gap-3 mt-4">
+                <button onclick="submitJobSeekerWithResume()" class="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">Complete Registration</button>
+                <button onclick="submitJobSeekerNoResume()" class="flex-1 bg-white/10 text-white py-3 rounded-lg font-semibold hover:bg-white/20 transition">Skip for Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedRole = '';
+    let profilePictureFile = null;
+    let resumeFile = null;
+    
+    // Track file selections
+    document.getElementById('profile_picture')?.addEventListener('change', function(e) {
+        profilePictureFile = e.target.files[0];
+    });
+    
+    document.getElementById('resume_file')?.addEventListener('change', function(e) {
+        resumeFile = e.target.files[0];
+    });
+    
+    function nextStep() {
+        const firstName = document.getElementById('first_name').value;
+        const lastName = document.getElementById('last_name').value;
+        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
+        const password1 = document.getElementById('password1').value;
+        const password2 = document.getElementById('password2').value;
+        
+        if (!firstName || !lastName || !email || !username || !password1 || !password2) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        if (password1 !== password2) {
+            alert('Passwords do not match');
+            return;
+        }
+        
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
+        
+        document.getElementById('step1-indicator').className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center mx-auto mb-2';
+        document.getElementById('step2-indicator').className = 'w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mx-auto mb-2';
+    }
+    
+    function nextStep2() {
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'block';
+        
+        document.getElementById('step2-indicator').className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center mx-auto mb-2';
+        document.getElementById('step3-indicator').className = 'w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mx-auto mb-2';
+    }
+    
+    function prevStep() {
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step1').style.display = 'block';
+        
+        document.getElementById('step2-indicator').className = 'w-8 h-8 rounded-full bg-white/20 text-gray-400 flex items-center justify-center mx-auto mb-2';
+        document.getElementById('step1-indicator').className = 'w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mx-auto mb-2';
+    }
+    
+    function prevStep2() {
+        document.getElementById('step3').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
+        
+        document.getElementById('step3-indicator').className = 'w-8 h-8 rounded-full bg-white/20 text-gray-400 flex items-center justify-center mx-auto mb-2';
+        document.getElementById('step2-indicator').className = 'w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mx-auto mb-2';
+    }
+    
+    function selectRole(role) {
+        selectedRole = role;
+        
+        if (role === 'employer') {
+            document.getElementById('company_field').style.display = 'block';
+            document.getElementById('step3').style.display = 'none';
+        } else {
+            document.getElementById('resume_field').style.display = 'block';
+            document.getElementById('step3').style.display = 'none';
+        }
+    }
+    
+    function submitEmployer() {
+        const companyName = document.getElementById('company_name').value;
+        if (!companyName) {
+            alert('Please enter your company name');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('first_name', document.getElementById('first_name').value);
+        formData.append('last_name', document.getElementById('last_name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('username', document.getElementById('username').value);
+        formData.append('password1', document.getElementById('password1').value);
+        formData.append('password2', document.getElementById('password2').value);
+        formData.append('phone_number', document.getElementById('phone_number').value);
+        formData.append('location', document.getElementById('location').value);
+        formData.append('bio', document.getElementById('bio').value);
+        formData.append('user_type', 'employer');
+        formData.append('company_name', companyName);
+        
+        if (profilePictureFile) {
+            formData.append('profile_picture', profilePictureFile);
+        }
+        
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'register' %}";
+        form.enctype = 'multipart/form-data';
+        
+        for (let [key, value] of formData.entries()) {
+            if (value instanceof File) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.name = key;
+                Object.defineProperty(input, 'files', { value: new FileListItems([value]) });
+                form.appendChild(input);
+            } else {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            }
+        }
+        
+        const csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = '{{ csrf_token }}';
+        form.appendChild(csrf);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+    function submitJobSeekerWithResume() {
+        const formData = new FormData();
+        formData.append('first_name', document.getElementById('first_name').value);
+        formData.append('last_name', document.getElementById('last_name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('username', document.getElementById('username').value);
+        formData.append('password1', document.getElementById('password1').value);
+        formData.append('password2', document.getElementById('password2').value);
+        formData.append('phone_number', document.getElementById('phone_number').value);
+        formData.append('location', document.getElementById('location').value);
+        formData.append('bio', document.getElementById('bio').value);
+        formData.append('user_type', 'job_seeker');
+        
+        if (profilePictureFile) {
+            formData.append('profile_picture', profilePictureFile);
+        }
+        
+        if (resumeFile) {
+            formData.append('resume', resumeFile);
+        }
+        
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'register' %}";
+        form.enctype = 'multipart/form-data';
+        
+        for (let [key, value] of formData.entries()) {
+            if (value instanceof File) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.name = key;
+                Object.defineProperty(input, 'files', { value: new FileListItems([value]) });
+                form.appendChild(input);
+            } else {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            }
+        }
+        
+        const csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = '{{ csrf_token }}';
+        form.appendChild(csrf);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+    function submitJobSeekerNoResume() {
+        const formData = new FormData();
+        formData.append('first_name', document.getElementById('first_name').value);
+        formData.append('last_name', document.getElementById('last_name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('username', document.getElementById('username').value);
+        formData.append('password1', document.getElementById('password1').value);
+        formData.append('password2', document.getElementById('password2').value);
+        formData.append('phone_number', document.getElementById('phone_number').value);
+        formData.append('location', document.getElementById('location').value);
+        formData.append('bio', document.getElementById('bio').value);
+        formData.append('user_type', 'job_seeker');
+        
+        if (profilePictureFile) {
+            formData.append('profile_picture', profilePictureFile);
+        }
+        
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'register' %}";
+        form.enctype = 'multipart/form-data';
+        
+        for (let [key, value] of formData.entries()) {
+            if (value instanceof File) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.name = key;
+                Object.defineProperty(input, 'files', { value: new FileListItems([value]) });
+                form.appendChild(input);
+            } else {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            }
+        }
+        
+        const csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = '{{ csrf_token }}';
+        form.appendChild(csrf);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+    function hideCompanyField() {
+        document.getElementById('company_field').style.display = 'none';
+        document.getElementById('step3').style.display = 'block';
+    }
+    
+    // Helper for FileList
+    function FileListItems(files) {
+        const b = [];
+        for (let i = 0; i < files.length; i++) {
+            b.push(files[i]);
+        }
+        b.item = function(i) { return b[i]; };
+        return b;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends 'jobs/base.html' %}
+{% load static %}
+
+{% block title %}Browse Candidates - JobBoard Nigeria{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-center gap-3 mb-4">
+        <i class="fas fa-users text-3xl text-purple-400"></i>
+        <h1 class="text-4xl font-bold text-white">Browse Candidates</h1>
+    </div>
+    <p class="text-gray-300 text-center mb-8">Find the perfect talent for your company in Nigeria</p>
+    
+    <!-- Search Bar -->
+    <div class="mb-8">
+        <div class="flex gap-4">
+            <div class="relative flex-1">
+                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search by name, skills, or location (Lagos, Abuja, Port Harcourt)..." class="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+            </div>
+            <button onclick="searchCandidates()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Search</button>
+        </div>
+    </div>
+    
+    <!-- Filter Section -->
+    <div class="flex flex-wrap gap-3 mb-8">
+        <button onclick="filterBy('all')" class="filter-btn px-4 py-2 bg-purple-600 rounded-lg transition" data-filter="all">All Candidates</button>
+        <button onclick="filterBy('tech')" class="filter-btn px-4 py-2 bg-white/10 rounded-lg hover:bg-purple-600 transition" data-filter="tech">Technology</button>
+        <button onclick="filterBy('finance')" class="filter-btn px-4 py-2 bg-white/10 rounded-lg hover:bg-purple-600 transition" data-filter="finance">Finance</button>
+        <button onclick="filterBy('design')" class="filter-btn px-4 py-2 bg-white/10 rounded-lg hover:bg-purple-600 transition" data-filter="design">Design</button>
+        <button onclick="filterBy('marketing')" class="filter-btn px-4 py-2 bg-white/10 rounded-lg hover:bg-purple-600 transition" data-filter="marketing">Marketing</button>
+        <button onclick="filterBy('engineering')" class="filter-btn px-4 py-2 bg-white/10 rounded-lg hover:bg-purple-600 transition" data-filter="engineering">Engineering</button>
+    </div>
+    
+    <!-- Candidates Grid - Real Nigerian Candidates -->
+    <div id="candidatesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Candidate 1 - Lagos -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="tech">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Chidi Okonkwo" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Chidi Okonkwo</h3>
+                    <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Available</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">Senior Software Engineer (5+ years)</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Lagos, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Python</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Django</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">React</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">PostgreSQL</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Chidi Okonkwo" data-email="chidi.okonkwo@example.com" data-phone="+234 812 345 6789">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Candidate 2 - Abuja -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="design">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Amina Bello" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Amina Bello</h3>
+                    <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs">Interviewing</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">Senior UX/UI Designer</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Abuja, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Figma</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Adobe XD</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">User Research</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Prototyping</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Amina Bello" data-email="amina.bello@example.com" data-phone="+234 803 456 7890">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Candidate 3 - Port Harcourt -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="finance">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Oluwaseun Adeyemi" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Oluwaseun Adeyemi</h3>
+                    <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Available</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">Financial Analyst (CFA Level 2)</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Port Harcourt, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Excel</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">SQL</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Tableau</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">QuickBooks</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Oluwaseun Adeyemi" data-email="oluwaseun.adeyemi@example.com" data-phone="+234 816 789 0123">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Candidate 4 - Lagos -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="marketing">
+            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Nkechi Eze" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Nkechi Eze</h3>
+                    <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Available</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">Digital Marketing Manager</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Lagos, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">SEO/SEM</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Google Ads</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Social Media</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Content Strategy</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Nkechi Eze" data-email="nkechi.eze@example.com" data-phone="+234 802 345 6789">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Candidate 5 - Ibadan -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="tech">
+            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Tunde Ogunlesi" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Tunde Ogunlesi</h3>
+                    <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs">Interviewing</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">DevOps Engineer</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Ibadan, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">AWS</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Docker</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Kubernetes</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Jenkins</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Tunde Ogunlesi" data-email="tunde.ogunlesi@example.com" data-phone="+234 813 456 7890">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Candidate 6 - Abuja -->
+        <div class="candidate-card bg-white/10 backdrop-blur rounded-2xl overflow-hidden hover:translate-y-[-5px] transition" data-category="engineering">
+            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Ifeoma Okeke" class="w-full h-48 object-cover">
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">Ifeoma Okeke</h3>
+                    <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Available</span>
+                </div>
+                <p class="text-purple-400 text-sm mb-2">Civil Engineer (COREN Registered)</p>
+                <div class="flex items-center gap-1 text-gray-400 text-sm mb-3">
+                    <i class="fas fa-map-marker-alt text-purple-400 text-xs"></i>
+                    <span>Abuja, Nigeria</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">AutoCAD</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Revit</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Project Management</span>
+                    <span class="px-2 py-1 bg-white/10 rounded-full text-xs text-gray-300">Site Supervision</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm hover:bg-purple-700 transition view-profile" data-name="Ifeoma Okeke" data-email="ifeoma.okeke@example.com" data-phone="+234 805 678 9012">View Profile</button>
+                    <button class="px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden items-center justify-center">
+    <div class="bg-gradient-to-br from-gray-900 to-purple-900 rounded-2xl p-8 max-w-md w-full mx-4 border border-purple-500/30">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-white">Candidate Profile</h3>
+            <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div id="profileContent" class="space-y-4">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterBy(category) {
+        const cards = document.querySelectorAll('.candidate-card');
+        const btns = document.querySelectorAll('.filter-btn');
+        
+        btns.forEach(btn => {
+            if (btn.getAttribute('data-filter') === category) {
+                btn.classList.add('bg-purple-600');
+                btn.classList.remove('bg-white/10');
+            } else {
+                btn.classList.add('bg-white/10');
+                btn.classList.remove('bg-purple-600');
+            }
+        });
+        
+        cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    function searchCandidates() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.candidate-card');
+        
+        cards.forEach(card => {
+            const name = card.querySelector('h3').textContent.toLowerCase();
+            const title = card.querySelector('p.text-purple-400').textContent.toLowerCase();
+            const locationSpan = card.querySelector('.flex.items-center.gap-1 span');
+            const location = locationSpan ? locationSpan.textContent.toLowerCase() : '';
+            const skills = Array.from(card.querySelectorAll('.flex.flex-wrap.gap-2 span')).map(s => s.textContent.toLowerCase());
+            const skillsMatch = skills.some(skill => skill.includes(searchTerm));
+            
+            if (name.includes(searchTerm) || title.includes(searchTerm) || location.includes(searchTerm) || skillsMatch) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Profile modal for viewing candidate details
+    document.querySelectorAll('.view-profile').forEach(button => {
+        button.addEventListener('click', function() {
+            const name = this.getAttribute('data-name');
+            const email = this.getAttribute('data-email');
+            const phone = this.getAttribute('data-phone');
+            
+            const modalContent = document.getElementById('profileContent');
+            modalContent.innerHTML = `
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-4">
+                        ${name.charAt(0)}
+                    </div>
+                    <h4 class="text-xl font-bold text-white">${name}</h4>
+                    <p class="text-purple-400 text-sm mb-4">${document.querySelector('.candidate-card p.text-purple-400')?.textContent || 'Professional'}</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 text-gray-300">
+                        <i class="fas fa-envelope w-5 text-purple-400"></i>
+                        <span>${email}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-gray-300">
+                        <i class="fas fa-phone w-5 text-purple-400"></i>
+                        <span>${phone}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-gray-300">
+                        <i class="fas fa-map-marker-alt w-5 text-purple-400"></i>
+                        <span>${document.querySelector('.flex.items-center.gap-1 span')?.textContent || 'Nigeria'}</span>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button onclick="closeProfileModal()" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">Close</button>
+                </div>
+            `;
+            document.getElementById('profileModal').classList.remove('hidden');
+            document.getElementById('profileModal').classList.add('flex');
+        });
+    });
+    
+    function closeProfileModal() {
+        document.getElementById('profileModal').classList.add('hidden');
+        document.getElementById('profileModal').classList.remove('flex');
+    }
+</script>
+{% endblock %}

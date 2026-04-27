@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JobBoard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #4c1d95, #1e3a8a);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+        .btn-signup {
+            background: #7c3aed;
+            padding: 8px 20px;
+            border-radius: 8px;
+        }
+        .main-content {
+            padding-top: 100px;
+            text-align: center;
+            color: white;
+        }
+        h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        .btn-primary {
+            background: white;
+            color: #7c3aed;
+            padding: 12px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 60px auto;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        .stat-number {
+            font-size: 40px;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+        .cta {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            text-align: center;
+            padding: 80px 20px;
+            margin-top: 40px;
+        }
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .cta p {
+            margin-bottom: 30px;
+        }
+        .footer {
+            background: rgba(0,0,0,0.3);
+            text-align: center;
+            padding: 30px;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" class="logo">JobBoard</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/jobs/">Browse Jobs</a>
+            <a href="/login/">Login</a>
+            <a href="/register/" class="btn-signup">Sign Up</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>Find Your Dream Career</h1>
+        <p class="subtitle">Join over 50,000+ professionals who found their perfect job through JobBoard.</p>
+        
+        <div>
+            <a href="/register/" class="btn-primary">Get Started Free →</a>
+            <a href="/jobs/" class="btn-secondary">Browse Jobs</a>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">10,000+</div>
+            <p>Active Jobs</p>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">5,000+</div>
+            <p>Companies</p>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">50,000+</div>
+            <p>Job Seekers</p>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h2>Ready to Start Your Journey?</h2>
+        <p>Join thousands of professionals who found their dream jobs</p>
+        <a href="/register/" class="btn-primary" style="background: white; color: #7c3aed;">Sign Up Now →</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 JobBoard. All rights reserved.</p>
+    </div>
+</body>
+</html>

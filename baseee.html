@@ -1,0 +1,677 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobBoard - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/src/output.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Parallax background effect */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        /* Hero background */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
+        }
+        
+        /* Stats background */
+        .stats-bg {
+            background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .stats-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9));
+        }
+        
+        /* Features background */
+        .features-bg {
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .features-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.92), rgba(48, 43, 99, 0.92));
+        }
+        
+        /* Categories background */
+        .categories-bg {
+            background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .categories-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.88), rgba(48, 43, 99, 0.88));
+        }
+        
+        /* Testimonials background */
+        .testimonials-bg {
+            background-image: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1974&auto=format');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .testimonials-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.9), rgba(48, 43, 99, 0.9));
+        }
+        
+        /* Glass morphism cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .glass-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-10px) scale(1.02);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Feature card */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        
+        .feature-card.animated-left {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .feature-card.animated-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Stat card */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .stat-card.animated-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        /* Category card */
+        .category-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .category-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .category-card:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        /* Job card */
+        .job-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        
+        .job-card.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px) translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Testimonial card */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .testimonial-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        /* Button styles */
+        .btn-premium {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-outline-premium {
+            background: transparent;
+            border: 2px solid #667eea;
+            padding: 10px 30px;
+            border-radius: 50px;
+            color: #667eea;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-premium:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Feature icon */
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            transition: all 0.5s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotateY(360deg);
+        }
+        
+        /* Scroll animations */
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.6);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-10deg) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+        
+        /* Staggered animations */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        
+        /* Number counter */
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+        
+        /* Text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Section titles */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        /* BG transition effect */
+        .bg-transition {
+            transition: background 0.5s ease;
+        }
+    </style>
+</head>
+<body class="text-white bg-transition">
+    <!-- Particles -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="particle" style="width: 3px; height: 3px; top: 20%; left: 10%; animation-duration: 15s;"></div>
+        <div class="particle" style="width: 5px; height: 5px; top: 60%; left: 20%; animation-duration: 25s;"></div>
+        <div class="particle" style="width: 2px; height: 2px; top: 40%; left: 80%; animation-duration: 18s;"></div>
+        <div class="particle" style="width: 4px; height: 4px; top: 70%; left: 90%; animation-duration: 22s;"></div>
+        <div class="particle" style="width: 6px; height: 6px; top: 10%; left: 50%; animation-duration: 20s;"></div>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">JobBoard</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="{% url 'home' %}" class="hover:text-purple-400 transition relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="{% url 'job_list' %}" class="hover:text-purple-400 transition relative group">
+                        Jobs
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="{% url 'about' %}" class="hover:text-purple-400 transition relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="{% url 'contact' %}" class="hover:text-purple-400 transition relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <div class="flex space-x-4">
+                    {% if user.is_authenticated %}
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 bg-purple-600 px-5 py-2 rounded-full hover:bg-purple-700 transition">
+                                <i class="fas fa-user"></i>
+                                <span>{{ user.username }}</span>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-gray-900 rounded-xl shadow-xl hidden group-hover:block border border-gray-700">
+                                <a href="{% url 'dashboard' %}" class="block px-4 py-2 hover:bg-purple-600 transition rounded-t-xl">Dashboard</a>
+                                <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-purple-600 transition">Profile</a>
+                                <a href="{% url 'logout' %}" class="block px-4 py-2 hover:bg-red-600 transition rounded-b-xl">Logout</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-outline-premium">Login</a>
+                        <a href="{% url 'register' %}" class="btn-premium">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="pt-20">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-black/80 backdrop-blur-lg border-t border-white/10 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-briefcase text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">JobBoard</span>
+                    </div>
+                    <p class="text-gray-400">Find your dream career with thousands of opportunities worldwide.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-purple-400 transition">Home</a></li>
+                        <li><a href="{% url 'job_list' %}" class="text-gray-400 hover:text-purple-400 transition">Browse Jobs</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-purple-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">For Employers</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'post_job' %}" class="text-gray-400 hover:text-purple-400 transition">Post a Job</a></li>
+                        <li><a href="{% url 'pricing' %}" class="text-gray-400 hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="{% url 'recruitment_solutions' %}" class="text-gray-400 hover:text-purple-400 transition">Recruitment Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">Follow Us</h3>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 JobBoard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 12, 41, 0.98)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            } else {
+                navbar.style.background = 'rgba(15, 12, 41, 0.95)';
+            }
+            
+            // Background color transition based on scroll position
+            const scrollPosition = window.scrollY;
+            const body = document.body;
+            
+            if (scrollPosition < 500) {
+                body.style.background = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+            } else if (scrollPosition < 1500) {
+                body.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)';
+            } else if (scrollPosition < 2500) {
+                body.style.background = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+            } else {
+                body.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)';
+            }
+        });
+        
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Intersection Observer for custom animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    if (entry.target.classList.contains('feature-card')) {
+                        if (entry.target.getAttribute('data-side') === 'left') {
+                            entry.target.classList.add('animated-left');
+                        } else {
+                            entry.target.classList.add('animated-right');
+                        }
+                    }
+                    if (entry.target.classList.contains('stat-card')) {
+                        entry.target.classList.add('animated-scale');
+                        // Trigger counter animation
+                        const counter = entry.target.querySelector('.counter');
+                        if (counter && !counter.hasAttribute('data-animated')) {
+                            counter.setAttribute('data-animated', 'true');
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            let current = 0;
+                            const increment = target / 60;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    counter.textContent = target.toLocaleString();
+                                    clearInterval(timer);
+                                } else {
+                                    counter.textContent = Math.floor(current).toLocaleString();
+                                }
+                            }, 20);
+                        }
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all elements
+        document.querySelectorAll('.glass-card, .feature-card, .stat-card, .category-card, .job-card, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Add data attributes for side animations
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            if (index % 2 === 0) {
+                card.setAttribute('data-side', 'left');
+            } else {
+                card.setAttribute('data-side', 'right');
+            }
+        });
+    </script>
+</body>
+</html>

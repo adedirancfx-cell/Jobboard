@@ -1,0 +1,156 @@
+{% extends 'jobs/base.html' %}
+{% load static %}
+
+{% block title %}Career Advice - JobBoard Nigeria{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-white text-center mb-4">Career Advice</h1>
+    <p class="text-gray-300 text-center mb-12 max-w-2xl mx-auto">Expert tips to help you succeed in your job search and career growth in Nigeria</p>
+    
+    <!-- Resume Tips Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white/10 backdrop-blur rounded-2xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=400&h=250&fit=crop" alt="Resume Tips" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-file-alt text-2xl text-purple-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Resume Writing Tips</h2>
+                </div>
+                <ul class="text-gray-300 space-y-3">
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Keep your resume to 1-2 pages maximum</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Use action verbs like "developed", "managed", "created"</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Tailor your resume for each job application</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Include keywords from the job description</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Quantify your achievements with numbers</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur rounded-2xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=400&h=250&fit=crop" alt="Interview Tips" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-handshake text-2xl text-purple-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Interview Success Tips</h2>
+                </div>
+                <ul class="text-gray-300 space-y-3">
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Research the company thoroughly before the interview</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Practice common interview questions</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Prepare thoughtful questions to ask the interviewer</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Dress professionally (corporate or smart casual)</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Send a thank-you email within 24 hours</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Salary Guide Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white/10 backdrop-blur rounded-2xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=400&h=250&fit=crop" alt="Salary Guide" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-chart-line text-2xl text-purple-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Salary Negotiation Guide</h2>
+                </div>
+                <ul class="text-gray-300 space-y-3">
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Research market rates for your position in Nigeria</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Know your worth and don't undersell yourself</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Consider the total compensation package</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Be confident but professional in negotiations</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Get the offer in writing before accepting</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur rounded-2xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400&h=250&fit=crop" alt="Networking" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-users text-2xl text-purple-400"></i>
+                    <h2 class="text-2xl font-bold text-white">Networking Strategies</h2>
+                </div>
+                <ul class="text-gray-300 space-y-3">
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Keep your LinkedIn profile updated</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Attend industry events and tech meetups in Nigeria</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Connect with professionals in your field</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Join relevant online communities (Slack, Discord, WhatsApp)</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-400 mt-1"></i> Follow up after making new connections</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Salary Table - Nigerian Naira -->
+    <div class="bg-white/10 backdrop-blur rounded-2xl p-6">
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <i class="fas fa-money-bill-wave text-2xl text-purple-400"></i>
+            <h2 class="text-2xl font-bold text-white">2024 Average Salaries by Role (₦ Naira)</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-gray-300">
+                <thead class="border-b border-white/20">
+                    <tr class="text-left">
+                        <th class="pb-3">Job Title</th>
+                        <th class="pb-3">Entry Level</th>
+                        <th class="pb-3">Mid Level</th>
+                        <th class="pb-3">Senior Level</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">Software Developer</td>
+                        <td class="py-3">₦1.5M - ₦2.5M</td>
+                        <td class="py-3">₦3M - ₦5M</td>
+                        <td class="py-3">₦6M - ₦10M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">Product Manager</td>
+                        <td class="py-3">₦2M - ₦3.5M</td>
+                        <td class="py-3">₦4M - ₦7M</td>
+                        <td class="py-3">₦8M - ₦15M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">UX/UI Designer</td>
+                        <td class="py-3">₦1.2M - ₦2M</td>
+                        <td class="py-3">₦2.5M - ₦4M</td>
+                        <td class="py-3">₦5M - ₦8M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">Marketing Manager</td>
+                        <td class="py-3">₦1M - ₦1.8M</td>
+                        <td class="py-3">₦2M - ₦3.5M</td>
+                        <td class="py-3">₦4M - ₦7M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">Data Scientist</td>
+                        <td class="py-3">₦2M - ₦3M</td>
+                        <td class="py-3">₦3.5M - ₦6M</td>
+                        <td class="py-3">₦7M - ₦12M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">DevOps Engineer</td>
+                        <td class="py-3">₦2M - ₦3M</td>
+                        <td class="py-3">₦3.5M - ₦5.5M</td>
+                        <td class="py-3">₦6M - ₦11M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">HR Manager</td>
+                        <td class="py-3">₦900k - ₦1.5M</td>
+                        <td class="py-3">₦1.8M - ₦3M</td>
+                        <td class="py-3">₦3.5M - ₦6M+</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                        <td class="py-3">Accountant</td>
+                        <td class="py-3">₦800k - ₦1.5M</td>
+                        <td class="py-3">₦1.8M - ₦2.8M</td>
+                        <td class="py-3">₦3M - ₦5M+</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-gray-400 text-xs text-center mt-4">* Salaries are annual figures in Nigerian Naira (₦). Figures are estimates based on market research.</p>
+    </div>
+</div>
+{% endblock %}

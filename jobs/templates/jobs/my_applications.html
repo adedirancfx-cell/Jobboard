@@ -1,0 +1,44 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}My Applications - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-white mb-8">My Applications</h1>
+    
+    <div class="space-y-4">
+        {% for app in applications %}
+        <div class="card-bg rounded-2xl p-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-2">{{ app.job.title }}</h2>
+                    <p class="text-purple-400 mb-2">{{ app.job.employer.company_name|default:app.job.employer.username }}</p>
+                    <p class="text-gray-300 text-sm">Applied: {{ app.applied_at|date:"F j, Y" }}</p>
+                    <p class="text-sm mt-2">Status: 
+                        <span class="{% if app.status == 'accepted' %}text-green-400{% elif app.status == 'rejected' %}text-red-400{% elif app.status == 'interview' %}text-blue-400{% else %}text-yellow-400{% endif %}">
+                            {{ app.get_status_display }}
+                        </span>
+                    </p>
+                </div>
+                <div>
+                    <a href="{% url 'job_detail' app.job.id %}" class="text-purple-400 hover:text-purple-300">View Job →</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="card-bg rounded-2xl p-8 text-center">
+            <p class="text-gray-400">You haven't applied for any jobs yet.</p>
+            <a href="{% url 'job_list' %}" class="inline-block mt-4 text-purple-400 hover:text-purple-300">Browse Jobs →</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card-bg {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+</style>
+{% endblock %}

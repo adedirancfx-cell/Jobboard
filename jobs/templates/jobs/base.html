@@ -1,0 +1,333 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>JobBoard - {% block title %}{% endblock %}</title>
+    
+    <!-- Your Custom Favicon - Labrada Italic on #A5F Background -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23A5F'/%3E%3Ctext x='50' y='68' font-size='110' text-anchor='middle' fill='white' font-family='Labrada' font-style='italic' font-weight='300'%3EJB%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="{% static '/src/output.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 font-['Inter'] min-h-screen overflow-x-hidden">
+    
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-[1000] bg-black/50 backdrop-blur-lg border-b border-white/10 transition-all duration-300 py-4 px-4 md:px-8">
+        <div class="flex justify-between items-center">
+            <!-- Logo with Image -->
+            <a href="{% url 'home' %}" class="flex items-center gap-2 hover:scale-105 transition-transform">
+                <img src="{% static 'images/logo.png' %}" alt="JobBoard Logo" class="h-8 w-auto">
+                <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    JobBoard
+                </span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">Home</a>
+                <a href="{% url 'job_list' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">Browse Jobs</a>
+                
+                {% if user.is_authenticated %}
+                    {% if user.user_type == 'employer' %}
+                        <a href="{% url 'post_job' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">Post Job</a>
+                        <a href="{% url 'my_jobs' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">My Jobs</a>
+                    {% else %}
+                        <a href="{% url 'my_applications' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">My Applications</a>
+                        <a href="{% url 'manage_resumes' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">My Resumes</a>
+                    {% endif %}
+                    <a href="{% url 'dashboard' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">Dashboard</a>
+                    
+                {% endif %}
+                {% if user.user_type == 'job_seeker' %}
+                    <a href="{% url 'saved_jobs' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">
+                        <i class="far fa-bookmark"></i> Saved Jobs
+                    </a>
+                {% endif %}
+            </div>
+            
+            <!-- Right side - Profile Image with Dropdown (Desktop) -->
+            <div class="hidden md:flex items-center gap-4">
+                {% if user.is_authenticated %}
+                    <div class="relative">
+                        <button id="profileBtn" class="flex items-center gap-2 focus:outline-none">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-9 h-9 rounded-full object-cover border-2 border-purple-400 hover:scale-105 transition-transform">
+                            {% else %}
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-sm font-semibold hover:scale-105 transition-transform">
+                                    {{ user.username|make_list|first|upper }}
+                                </div>
+                            {% endif %}
+                        </button>
+                        
+                        <!-- Desktop Dropdown Menu -->
+                        <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-gray-900/95 backdrop-blur-lg rounded-xl shadow-lg py-2 opacity-0 invisible transition-all duration-200 z-50 border border-white/10">
+                            <div class="px-4 py-3 border-b border-white/10">
+                                <p class="text-white text-sm font-semibold">{{ user.get_full_name|default:user.username }}</p>
+                                <p class="text-gray-400 text-xs">{{ user.user_type|title }}</p>
+                            </div>
+                            <a href="{% url 'profile' %}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/50 hover:text-white transition">
+                                <i class="fas fa-user mr-2 w-4"></i> My Profile
+                            </a>
+                            <a href="{% url 'dashboard' %}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/50 hover:text-white transition">
+                                <i class="fas fa-tachometer-alt mr-2 w-4"></i> Dashboard
+                            </a>
+                            {% if user.user_type == 'job_seeker' %}
+                            <a href="{% url 'manage_resumes' %}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/50 hover:text-white transition">
+                                <i class="fas fa-file-alt mr-2 w-4"></i> My Resumes
+                            </a>
+                            {% endif %}
+                            <div class="border-t border-white/10 mt-2 pt-2">
+                                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-red-400 hover:bg-red-500/20 transition">
+                                    <i class="fas fa-sign-out-alt mr-2 w-4"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-gray-300 hover:text-white transition text-sm font-medium">Login</a>
+                    <a href="{% url 'register' %}" class="bg-purple-600 px-4 py-1.5 rounded-lg text-white hover:bg-purple-700 transition text-sm font-medium">Sign Up</a>
+                {% endif %}
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-white text-2xl focus:outline-none w-8 h-8 flex items-center justify-center">
+                <i id="mobileMenuIcon" class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden fixed top-[73px] left-0 right-0 bg-black/95 backdrop-blur-lg border-b border-white/10 z-[999] py-4 px-6 max-h-[calc(100vh-73px)] overflow-y-auto">
+        <div class="flex flex-col gap-2">
+            <a href="{% url 'home' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">Home</a>
+            <a href="{% url 'job_list' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">Browse Jobs</a>
+            
+            {% if user.is_authenticated %}
+                {% if user.user_type == 'employer' %}
+                    <a href="{% url 'post_job' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">Post Job</a>
+                    <a href="{% url 'my_jobs' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">My Jobs</a>
+                {% else %}
+                    <a href="{% url 'my_applications' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">My Applications</a>
+                    <a href="{% url 'manage_resumes' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">My Resumes</a>
+                {% endif %}
+                <a href="{% url 'dashboard' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">Dashboard</a>
+                
+                <!-- Mobile Profile Section with Dropdown -->
+                <div class="relative mt-2">
+                    <button id="mobileProfileBtn" class="w-full flex items-center justify-between gap-3 py-3 px-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                        <div class="flex items-center gap-3">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-10 h-10 rounded-full object-cover border-2 border-purple-400">
+                            {% else %}
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
+                                    {{ user.username|make_list|first|upper }}
+                                </div>
+                            {% endif %}
+                            <div class="text-left">
+                                <p class="text-white font-semibold">{{ user.get_full_name|default:user.username }}</p>
+                                <p class="text-gray-400 text-sm">{{ user.user_type|title }}</p>
+                            </div>
+                        </div>
+                        <i id="mobileDropdownIcon" class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    
+                    <!-- Mobile Submenu -->
+                    <div id="mobileSubmenu" class="hidden mt-2 space-y-2 pl-4">
+                        <a href="{% url 'profile' %}" class="flex items-center gap-3 text-gray-300 hover:text-white py-2 px-4 rounded-lg hover:bg-white/10 transition">
+                            <i class="fas fa-user w-5"></i> My Profile
+                        </a>
+                        <a href="{% url 'dashboard' %}" class="flex items-center gap-3 text-gray-300 hover:text-white py-2 px-4 rounded-lg hover:bg-white/10 transition">
+                            <i class="fas fa-tachometer-alt w-5"></i> Dashboard
+                        </a>
+                        {% if user.user_type == 'job_seeker' %}
+                        <a href="{% url 'manage_resumes' %}" class="flex items-center gap-3 text-gray-300 hover:text-white py-2 px-4 rounded-lg hover:bg-white/10 transition">
+                            <i class="fas fa-file-alt w-5"></i> My Resumes
+                        </a>
+                        {% endif %}
+                        <div class="border-t border-white/10 my-2"></div>
+                        <a href="{% url 'logout' %}" class="flex items-center gap-3 text-red-400 hover:bg-red-500/20 py-2 px-4 rounded-lg transition">
+                            <i class="fas fa-sign-out-alt w-5"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">Login</a>
+                <a href="{% url 'register' %}" class="bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition text-center">Sign Up</a>
+            {% endif %}
+            {% if user.user_type == 'job_seeker' %}
+                <a href="{% url 'saved_jobs' %}" class="text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/10 transition text-center">
+                    <i class="far fa-bookmark"></i> Saved Jobs
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Messages -->
+    {% if messages %}
+        <div class="fixed top-20 right-4 z-[1100] space-y-2">
+            {% for message in messages %}
+                <div class="px-6 py-3 rounded-lg shadow-lg transition-all duration-300 
+                    {% if message.tags == 'success' %}bg-green-500 text-white
+                    {% elif message.tags == 'error' %}bg-red-500 text-white
+                    {% else %}bg-blue-500 text-white{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main class="pt-20 min-h-[calc(100vh-150px)]">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-black/30 border-t border-white/10 text-center py-6 text-gray-400 text-sm">
+        <p>&copy; {% now "Y" %} JobBoard. All rights reserved. Built for job seekers and employers.</p>
+    </footer>
+    
+    <script>
+        // ========== DESKTOP PROFILE DROPDOWN ==========
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileDropdown.classList.contains('opacity-0')) {
+                    profileDropdown.classList.remove('opacity-0', 'invisible');
+                    profileDropdown.classList.add('opacity-100', 'visible');
+                } else {
+                    profileDropdown.classList.add('opacity-0', 'invisible');
+                    profileDropdown.classList.remove('opacity-100', 'visible');
+                }
+            });
+        }
+        
+        // Close desktop dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (profileDropdown && !profileDropdown.classList.contains('opacity-0')) {
+                if (!profileBtn?.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.add('opacity-0', 'invisible');
+                    profileDropdown.classList.remove('opacity-100', 'visible');
+                }
+            }
+        });
+        
+        // ========== MOBILE PROFILE SUBMENU ==========
+        const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+        const mobileSubmenu = document.getElementById('mobileSubmenu');
+        const mobileDropdownIcon = document.getElementById('mobileDropdownIcon');
+        
+        if (mobileProfileBtn && mobileSubmenu) {
+            mobileProfileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (mobileSubmenu.classList.contains('hidden')) {
+                    mobileSubmenu.classList.remove('hidden');
+                    if (mobileDropdownIcon) {
+                        mobileDropdownIcon.style.transform = 'rotate(180deg)';
+                    }
+                } else {
+                    mobileSubmenu.classList.add('hidden');
+                    if (mobileDropdownIcon) {
+                        mobileDropdownIcon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+        }
+        
+        // ========== MOBILE MAIN MENU TOGGLE ==========
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenuIcon.classList.remove('fa-bars');
+                    mobileMenuIcon.classList.add('fa-times');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuIcon.classList.remove('fa-times');
+                    mobileMenuIcon.classList.add('fa-bars');
+                    // Also close the submenu when main menu closes
+                    if (mobileSubmenu && !mobileSubmenu.classList.contains('hidden')) {
+                        mobileSubmenu.classList.add('hidden');
+                        if (mobileDropdownIcon) {
+                            mobileDropdownIcon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.classList.remove('fa-times');
+                        mobileMenuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // Close menus when clicking outside
+        document.addEventListener('click', function(event) {
+            // Close mobile main menu
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                if (!mobileMenuBtn?.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.classList.remove('fa-times');
+                        mobileMenuIcon.classList.add('fa-bars');
+                    }
+                    // Close mobile submenu as well
+                    if (mobileSubmenu && !mobileSubmenu.classList.contains('hidden')) {
+                        mobileSubmenu.classList.add('hidden');
+                        if (mobileDropdownIcon) {
+                            mobileDropdownIcon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-black/80');
+                    navbar.classList.remove('bg-black/50');
+                } else {
+                    navbar.classList.add('bg-black/50');
+                    navbar.classList.remove('bg-black/80');
+                }
+            }
+        });
+        
+        // Auto-hide messages after 4 seconds
+        setTimeout(() => {
+            const messages = document.querySelectorAll('.fixed.top-20.right-4 > div');
+            messages.forEach(msg => {
+                setTimeout(() => {
+                    msg.style.opacity = '0';
+                    setTimeout(() => msg.remove(), 300);
+                }, 4000);
+            });
+        }, 1000);
+    </script>
+    
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

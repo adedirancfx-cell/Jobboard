@@ -1,0 +1,445 @@
+{% extends 'jobs/base.html' %}
+{% load static %}
+
+{% block title %}Home - Find Your Dream Career{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Background Image -->
+<section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-purple-900/80 to-pink-900/80 z-0"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur rounded-full px-4 py-2 mb-8" data-aos="fade-down">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-sm text-white">🔥 10,000+ Jobs Available Now</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-white via-purple-400 to-pink-400 bg-clip-text text-transparent" data-aos="fade-up" data-aos-delay="100">
+                Find Your Dream
+                <span class="block mt-2">Career Today</span>
+            </h1>
+            
+            <p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Join over 50,000+ professionals who found their perfect job through JobBoard. 
+                Your next career opportunity is just a click away.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="300">
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'register' %}" class="btn-premium text-lg px-8 py-3 inline-flex items-center group">
+                        Get Started Free
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </a>
+                    <a href="{% url 'job_list' %}" class="btn-outline-premium text-lg px-8 py-3 inline-flex items-center">
+                        Browse Jobs
+                        <i class="fas fa-search ml-2"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="btn-premium text-lg px-8 py-3">Go to Dashboard →</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce z-10" onclick="scrollToSection('stats')">
+        <div class="w-10 h-16 border-2 border-white/30 rounded-full flex justify-center">
+            <div class="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section with Background Image -->
+<section id="stats" class="stats-bg py-20 relative">
+    <div class="absolute inset-0 bg-black/70 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="text-5xl mb-4">
+                    <i class="fas fa-briefcase text-purple-400"></i>
+                </div>
+                <div class="stat-number text-5xl font-bold mb-2">
+                    <span class="counter" data-target="10000">0</span>+
+                </div>
+                <p class="text-white text-lg">Active Jobs</p>
+                <p class="text-xs text-gray-400 mt-2">Updated daily</p>
+            </div>
+            
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="text-5xl mb-4">
+                    <i class="fas fa-building text-pink-400"></i>
+                </div>
+                <div class="stat-number text-5xl font-bold mb-2">
+                    <span class="counter" data-target="5000">0</span>+
+                </div>
+                <p class="text-white text-lg">Companies Hiring</p>
+                <p class="text-xs text-gray-400 mt-2">Top companies trust us</p>
+            </div>
+            
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="text-5xl mb-4">
+                    <i class="fas fa-users text-blue-400"></i>
+                </div>
+                <div class="stat-number text-5xl font-bold mb-2">
+                    <span class="counter" data-target="50000">0</span>+
+                </div>
+                <p class="text-white text-lg">Job Seekers</p>
+                <p class="text-xs text-gray-400 mt-2">Growing community</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section with Background Image -->
+<section class="features-bg py-20 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-purple-900/80 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-purple-400 text-sm uppercase tracking-wider" data-aos="fade-up">Why Choose Us</span>
+            <h2 class="section-title mt-2 mb-4 text-white" data-aos="fade-up" data-aos-delay="100">Powerful Features for<br>Your Success</h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                We provide everything you need to find your dream job or hire the best talent
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="feature-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Quick Apply</h3>
+                <p class="text-gray-300">Apply to multiple jobs with just one click using our streamlined application process</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">AI Matching</h3>
+                <p class="text-gray-300">Smart algorithm matches your skills with the perfect job opportunities</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-left" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Analytics Dashboard</h3>
+                <p class="text-gray-300">Track your applications, view insights, and optimize your job search strategy</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-right" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Job Alerts</h3>
+                <p class="text-gray-300">Get personalized job alerts sent directly to your inbox daily</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Resume Builder</h3>
+                <p class="text-gray-300">Create professional resumes with our easy-to-use builder tool</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-left" data-aos-delay="600">
+                <div class="feature-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Video Interviews</h3>
+                <p class="text-gray-300">Conduct or join video interviews directly on our platform</p>
+                <div class="mt-4">
+                    <span class="text-purple-400 text-sm hover:text-purple-300 cursor-pointer transition">Learn more →</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Categories Section with Background Image -->
+<section class="categories-bg py-20 relative">
+    <div class="absolute inset-0 bg-black/70 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-purple-400 text-sm uppercase tracking-wider" data-aos="fade-up">Popular Categories</span>
+            <h2 class="section-title mt-2 mb-4 text-white" data-aos="fade-up" data-aos-delay="100">Browse by Category</h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Find jobs in your field of expertise
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-code text-5xl text-purple-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Technology</p>
+                <p class="text-xs text-gray-400 mt-1">2,345 jobs</p>
+            </div>
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="150">
+                <i class="fas fa-chart-line text-5xl text-pink-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Finance</p>
+                <p class="text-xs text-gray-400 mt-1">1,234 jobs</p>
+            </div>
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-heartbeat text-5xl text-red-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Healthcare</p>
+                <p class="text-xs text-gray-400 mt-1">1,876 jobs</p>
+            </div>
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="250">
+                <i class="fas fa-chalkboard-user text-5xl text-blue-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Education</p>
+                <p class="text-xs text-gray-400 mt-1">987 jobs</p>
+            </div>
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-chart-simple text-5xl text-yellow-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Marketing</p>
+                <p class="text-xs text-gray-400 mt-1">654 jobs</p>
+            </div>
+            <div class="category-card text-center group cursor-pointer" data-aos="fade-up" data-aos-delay="350">
+                <i class="fas fa-palette text-5xl text-orange-400 mb-3 group-hover:scale-110 transition-transform inline-block"></i>
+                <p class="font-semibold text-white mt-2">Design</p>
+                <p class="text-xs text-gray-400 mt-1">432 jobs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Jobs Section with Background Image -->
+<section class="featured-jobs-bg py-20 relative">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-purple-900/80 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-purple-400 text-sm uppercase tracking-wider" data-aos="fade-up">Latest Opportunities</span>
+            <h2 class="section-title mt-2 mb-4 text-white" data-aos="fade-up" data-aos-delay="100">Featured Jobs</h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Discover the most exciting opportunities from top companies
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {% for job in featured_jobs %}
+            <div class="job-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-2xl font-bold text-white">
+                        {{ job.title|make_list|first|upper }}
+                    </div>
+                    <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold">{{ job.get_job_type_display }}</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white">{{ job.title }}</h3>
+                <p class="text-gray-400 text-sm mb-3">{{ job.employer.company_name|default:job.employer.username }}</p>
+                <div class="flex items-center text-gray-400 text-sm mb-4">
+                    <i class="fas fa-map-marker-alt mr-2 text-purple-400"></i>
+                    <span>{{ job.location }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        {% if job.salary_min and job.salary_max %}
+                        <span class="text-2xl font-bold text-purple-400">${{ job.salary_min }}k</span>
+                        <span class="text-gray-400"> - ${{ job.salary_max }}k</span>
+                        {% else %}
+                        <span class="text-gray-400">Salary not specified</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'job_detail' job.id %}" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition transform hover:scale-110">
+                        <i class="fas fa-arrow-right text-white"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center text-gray-400">No featured jobs available yet.</div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'job_list' %}" class="btn-outline-premium inline-flex items-center" data-aos="fade-up">
+                Browse All Jobs
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section with Background Image -->
+<section class="testimonials-bg py-20 relative">
+    <div class="absolute inset-0 bg-black/70 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-purple-400 text-sm uppercase tracking-wider" data-aos="fade-up">Testimonials</span>
+            <h2 class="section-title mt-2 mb-4 text-white" data-aos="fade-up" data-aos-delay="100">What Our Users Say</h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Join thousands of satisfied job seekers and employers
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center font-bold text-xl text-white">
+                        JD
+                    </div>
+                    <div class="ml-3">
+                        <p class="font-semibold text-white">John Doe</p>
+                        <p class="text-sm text-gray-400">Software Engineer</p>
+                    </div>
+                </div>
+                <div class="flex mb-3">
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                </div>
+                <p class="text-gray-300">"Found my dream job within 2 weeks! The platform is amazing and very easy to use."</p>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center font-bold text-xl text-white">
+                        MS
+                    </div>
+                    <div class="ml-3">
+                        <p class="font-semibold text-white">Mary Smith</p>
+                        <p class="text-sm text-gray-400">HR Manager</p>
+                    </div>
+                </div>
+                <div class="flex mb-3">
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                </div>
+                <p class="text-gray-300">"Found exceptional candidates for our open positions. Highly recommended!"</p>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center font-bold text-xl text-white">
+                        RJ
+                    </div>
+                    <div class="ml-3">
+                        <p class="font-semibold text-white">Robert Johnson</p>
+                        <p class="text-sm text-gray-400">Product Manager</p>
+                    </div>
+                </div>
+                <div class="flex mb-3">
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <i class="fas fa-star-half-alt text-yellow-400"></i>
+                </div>
+                <p class="text-gray-300">"The AI matching is incredible! Got relevant job recommendations that matched my skills perfectly."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Expert Career Advice Section with Background Image -->
+<section class="career-advice-bg py-20 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-purple-900/80 z-0"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span class="text-purple-400 text-sm uppercase tracking-wider" data-aos="fade-up">Career Resources</span>
+            <h2 class="section-title mt-2 mb-4 text-white" data-aos="fade-up" data-aos-delay="100">Expert Career Advice</h2>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Tips and insights to boost your career
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card overflow-hidden group cursor-pointer p-0" data-aos="flip-left" data-aos-delay="100">
+                <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-6xl">
+                    <i class="fas fa-file-alt text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="text-sm text-purple-400 mb-2">Resume Tips</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">How to Write a Standout Resume</h3>
+                    <p class="text-gray-300 text-sm mb-4">Learn the secrets to creating a resume that gets noticed by top employers.</p>
+                    <a href="#" class="text-purple-400 hover:text-purple-300 transition">Read More →</a>
+                </div>
+            </div>
+            
+            <div class="glass-card overflow-hidden group cursor-pointer p-0" data-aos="flip-up" data-aos-delay="200">
+                <div class="h-48 bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center text-6xl">
+                    <i class="fas fa-comments text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="text-sm text-purple-400 mb-2">Interview Tips</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">10 Tips to Ace Your Interview</h3>
+                    <p class="text-gray-300 text-sm mb-4">Master the art of interviewing and land your dream job.</p>
+                    <a href="#" class="text-purple-400 hover:text-purple-300 transition">Read More →</a>
+                </div>
+            </div>
+            
+            <div class="glass-card overflow-hidden group cursor-pointer p-0" data-aos="flip-right" data-aos-delay="300">
+                <div class="h-48 bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-6xl">
+                    <i class="fas fa-chart-line text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="text-sm text-purple-400 mb-2">Salary Guide</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">2024 Salary Guide</h3>
+                    <p class="text-gray-300 text-sm mb-4">Know your worth with our comprehensive salary insights.</p>
+                    <a href="#" class="text-purple-400 hover:text-purple-300 transition">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"></div>
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute w-64 h-64 bg-white rounded-full filter blur-3xl opacity-20 animate-float" style="top: -20%; left: -10%;"></div>
+        <div class="absolute w-96 h-96 bg-white rounded-full filter blur-3xl opacity-20 animate-float-slow" style="bottom: -30%; right: -20%;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <h2 class="text-4xl md:text-6xl font-bold text-white mb-4" data-aos="fade-up">Ready to Start Your Journey?</h2>
+        <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Join thousands of professionals who found their dream jobs through JobBoard
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+            <a href="{% url 'register' %}" class="inline-flex items-center px-8 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-white/90 transition transform hover:scale-105">
+                Get Started Now
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+            <a href="{% url 'job_list' %}" class="inline-flex items-center px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition">
+                Explore Jobs
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Partner Companies -->
+<section class="py-12 border-t border-white/10 bg-black/50">
+    <div class="container mx-auto px-4">
+        <p class="text-center text-gray-400 mb-8" data-aos="fade-up">Trusted by leading companies worldwide</p>
+        <div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Google</span>
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Microsoft</span>
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Amazon</span>
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Meta</span>
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Netflix</span>
+            <span class="text-2xl font-bold text-gray-300 hover:text-purple-400 transition cursor-pointer">Apple</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

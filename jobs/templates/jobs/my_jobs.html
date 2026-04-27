@@ -1,0 +1,42 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}My Jobs - JobBoard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-white mb-8">My Job Postings</h1>
+    
+    <div class="space-y-4">
+        {% for job in jobs %}
+        <div class="card-bg rounded-2xl p-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-2">{{ job.title }}</h2>
+                    <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt"></i> {{ job.location }}</p>
+                    <p class="text-gray-400 text-sm">Posted: {{ job.created_at|date }}</p>
+                    <p class="text-purple-400 text-sm mt-2">{{ job.applications.count }} applicant(s)</p>
+                </div>
+                <div class="text-right">
+                    <a href="{% url 'view_applications' job.id %}" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition inline-block mb-2">
+                        View Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="card-bg rounded-2xl p-8 text-center">
+            <p class="text-gray-400">You haven't posted any jobs yet.</p>
+            <a href="{% url 'post_job' %}" class="inline-block mt-4 text-purple-400 hover:text-purple-300">Post Your First Job →</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card-bg {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+</style>
+{% endblock %}
