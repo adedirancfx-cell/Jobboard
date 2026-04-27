@@ -13,7 +13,22 @@ SECRET_KEY = 'django-insecure-(063p__&ry+a4!jlj)$fu#l6vr(0#59-^lfn_3ogdzq4j-jt9v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+from pathlib import Path
+
+# At the top, add:
+import dj_database_url
+
+ALLOWED_HOSTS = ['*', '.onrender.com', 'localhost', '127.0.0.1', 'jobboard-51sj.onrender.com']
+
+# Static files configuration
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
 INSTALLED_APPS = [
@@ -87,13 +102,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_URL = 'static/'
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files (User uploads - profile pictures, resumes)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# # Media files (User uploads - profile pictures, resumes)
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Custom user model
 AUTH_USER_MODEL = 'jobs.CustomUser'
