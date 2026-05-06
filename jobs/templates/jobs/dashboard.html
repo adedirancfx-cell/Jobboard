@@ -3,73 +3,173 @@
 {% block title %}Dashboard - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold text-white mb-8">Dashboard</h1>
+<div class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+    <div class="mb-8">
+        <h1 class="text-3xl font-black text-gray-900 dark:text-white">Dashboard</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Welcome back, {{ user.first_name|default:user.username }}!</p>
+    </div>
     
     {% if user.user_type == 'employer' %}
         <!-- Employer Dashboard -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="card-bg rounded-2xl p-6 text-center">
-                <div class="text-4xl font-bold text-purple-400 mb-2">{{ total_jobs }}</div>
-                <p class="text-gray-300">Jobs Posted</p>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-briefcase text-2xl text-indigo-600"></i>
+                    </div>
+                    <span class="text-3xl font-black text-indigo-600">{{ total_jobs }}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 dark:text-white">Jobs Posted</h3>
+                <p class="text-sm text-gray-500 mt-1">Total jobs you've posted</p>
             </div>
-            <div class="card-bg rounded-2xl p-6 text-center">
-                <div class="text-4xl font-bold text-purple-400 mb-2">{{ total_applications }}</div>
-                <p class="text-gray-300">Total Applications</p>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-users text-2xl text-green-600"></i>
+                    </div>
+                    <span class="text-3xl font-black text-green-600">{{ total_applications }}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 dark:text-white">Total Applications</h3>
+                <p class="text-sm text-gray-500 mt-1">Candidates who applied</p>
             </div>
-            <div class="card-bg rounded-2xl p-6 text-center">
-                <div class="text-4xl font-bold text-purple-400 mb-2">{{ pending_applications }}</div>
-                <p class="text-gray-300">Pending Review</p>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/50 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-clock text-2xl text-yellow-600"></i>
+                    </div>
+                    <span class="text-3xl font-black text-yellow-600">{{ pending_applications }}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 dark:text-white">Pending Review</h3>
+                <p class="text-sm text-gray-500 mt-1">Applications to review</p>
             </div>
         </div>
         
-        <div class="card-bg rounded-2xl p-6">
-            <h2 class="text-xl font-bold text-white mb-4">Recent Applications</h2>
-            <div class="space-y-4">
+        <!-- Recent Applications -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">Recent Applications</h2>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
                 {% for app in recent_applications %}
-                <div class="border-b border-white/10 pb-3">
-                    <p class="text-white"><strong>{{ app.job.title }}</strong> - {{ app.job_seeker.get_full_name|default:app.job_seeker.username }}</p>
-                    <p class="text-gray-400 text-sm">Status: {{ app.get_status_display }} | Applied: {{ app.applied_at|date }}</p>
+                <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white">{{ app.job.title }}</p>
+                            <p class="text-sm text-gray-500">From: {{ app.job_seeker.get_full_name|default:app.job_seeker.username }}</p>
+                            <p class="text-xs text-gray-400 mt-1">Applied: {{ app.applied_at|date:"M d, Y" }}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold
+                                {% if app.status == 'pending' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300
+                                {% elif app.status == 'accepted' %}bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300
+                                {% elif app.status == 'rejected' %}bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300
+                                {% else %}bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300{% endif %}">
+                                {{ app.get_status_display }}
+                            </span>
+                            <div class="mt-2">
+                                <a href="{% url 'view_applications' app.job.id %}" class="text-indigo-600 hover:text-indigo-700 text-sm font-semibold">View →</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% empty %}
-                <p class="text-gray-400">No applications yet.</p>
+                <div class="px-6 py-8 text-center">
+                    <p class="text-gray-500">No applications yet</p>
+                </div>
                 {% endfor %}
             </div>
+            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                <a href="{% url 'my_jobs' %}" class="text-indigo-600 hover:text-indigo-700 font-semibold">View all jobs →</a>
+            </div>
         </div>
+        
+        <!-- Quick Action -->
+        <div class="mt-8 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-2xl p-6 text-white">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h3 class="text-xl font-bold">Need to hire talent?</h3>
+                    <p class="text-indigo-100 mt-1">Post a new job and find the right candidates</p>
+                </div>
+                <a href="{% url 'post_job' %}" class="bg-white text-indigo-600 hover:bg-gray-100 px-6 py-3 rounded-xl font-bold transition shadow-md">Post a Job →</a>
+            </div>
+        </div>
+        
     {% else %}
         <!-- Job Seeker Dashboard -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="card-bg rounded-2xl p-6 text-center">
-                <div class="text-4xl font-bold text-purple-400 mb-2">{{ applications.count }}</div>
-                <p class="text-gray-300">Jobs Applied</p>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-file-alt text-2xl text-indigo-600"></i>
+                    </div>
+                    <span class="text-3xl font-black text-indigo-600">{{ total_applications }}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 dark:text-white">Jobs Applied</h3>
+                <p class="text-sm text-gray-500 mt-1">Total applications submitted</p>
             </div>
-            <div class="card-bg rounded-2xl p-6 text-center">
-                <div class="text-4xl font-bold text-purple-400 mb-2">{{ applications.filter|length }}</div>
-                <p class="text-gray-300">Active Applications</p>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-bookmark text-2xl text-green-600"></i>
+                    </div>
+                    <span class="text-3xl font-black text-green-600">{{ saved_count|default:0 }}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 dark:text-white">Saved Jobs</h3>
+                <p class="text-sm text-gray-500 mt-1">Jobs you've bookmarked</p>
             </div>
         </div>
         
-        <div class="card-bg rounded-2xl p-6">
-            <h2 class="text-xl font-bold text-white mb-4">Your Applications</h2>
-            <div class="space-y-4">
+        <!-- Recent Applications -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">Your Applications</h2>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
                 {% for app in applications %}
-                <div class="border-b border-white/10 pb-3">
-                    <p class="text-white"><strong>{{ app.job.title }}</strong> at {{ app.job.employer.company_name|default:app.job.employer.username }}</p>
-                    <p class="text-gray-400 text-sm">Status: {{ app.get_status_display }} | Applied: {{ app.applied_at|date }}</p>
+                <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white">{{ app.job.title }}</p>
+                            <p class="text-sm text-gray-500">{{ app.job.employer.company_name|default:app.job.employer.username }}</p>
+                            <p class="text-xs text-gray-400 mt-1">Applied: {{ app.applied_at|date:"M d, Y" }}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold
+                                {% if app.status == 'pending' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300
+                                {% elif app.status == 'accepted' %}bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300
+                                {% elif app.status == 'rejected' %}bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300
+                                {% else %}bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300{% endif %}">
+                                {{ app.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 {% empty %}
-                <p class="text-gray-400">You haven't applied for any jobs yet.</p>
+                <div class="px-6 py-8 text-center">
+                    <i class="fas fa-inbox text-4xl text-gray-400 mb-3"></i>
+                    <p class="text-gray-500">You haven't applied for any jobs yet</p>
+                    <a href="{% url 'job_list' %}" class="inline-block mt-4 text-indigo-600 font-semibold hover:underline">Browse Jobs →</a>
+                </div>
                 {% endfor %}
             </div>
         </div>
+        
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <a href="{% url 'job_list' %}" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition text-center">
+                <i class="fas fa-search text-2xl text-indigo-600 mb-2"></i>
+                <p class="font-semibold text-gray-900 dark:text-white">Browse More Jobs</p>
+                <p class="text-sm text-gray-500">Find your next opportunity</p>
+            </a>
+            <a href="{% url 'manage_resumes' %}" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition text-center">
+                <i class="fas fa-file-alt text-2xl text-indigo-600 mb-2"></i>
+                <p class="font-semibold text-gray-900 dark:text-white">Update Resume</p>
+                <p class="text-sm text-gray-500">Keep your profile up to date</p>
+            </a>
+        </div>
     {% endif %}
 </div>
-
-<style>
-    .card-bg {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-</style>
 {% endblock %}
