@@ -1,6 +1,3 @@
-"""
-Django settings for jobboard project.
-"""
 import os
 from pathlib import Path
 
@@ -8,12 +5,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-(063p__&ry+a4!jlj)$fu#l6vr(0#59-^lfn_3ogdzq4j-jt9v'
 
-DEBUG = True
+DEBUG = False
 
-# THIS IS THE CRITICAL FIX - ADD YOUR RENDER URL
-ALLOWED_HOSTS = ['*', '.onrender.com', 'localhost', '127.0.0.1', 'jobboard-51sj.onrender.com']
+ALLOWED_HOSTS = ['*', '.pythonanywhere.com', 'localhost', '127.0.0.1']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,7 +22,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -40,7 +34,7 @@ ROOT_URLCONF = 'jobboard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'jobs' / 'templates'], 
+        'DIRS': [BASE_DIR / 'jobs' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,20 +64,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Lagos'
 USE_I18N = True
 USE_TZ = True
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# Ensure static files are served in production
-import whitenoise
-
+# Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
+# Custom user model
 AUTH_USER_MODEL = 'jobs.CustomUser'
 
 LOGIN_URL = 'login'
