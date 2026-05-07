@@ -6,118 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>JobBoard - {% block title %}{% endblock %}</title>
     
-    <!-- Your compiled Tailwind CSS -->
-    <link rel="stylesheet" href="{% static '/src/output.css' %}">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f46e5'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EJB%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23000'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-weight='bold'%3EJB%3C/text%3E%3C/svg%3E">
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-sans antialiased">
+<body class="bg-white dark:bg-black font-['Inter'] antialiased">
 
+    <!-- Top Alert Bar - Deriv Style -->
+    <div class="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-white/10 transform -skew-x-12"></div>
+        <div class="relative max-w-7xl mx-auto px-4 py-2.5 text-center text-sm font-medium animate-pulse">
+            🔥 10,000+ Jobs Available • Post Your Resume • Get Hired Faster
+        </div>
+    </div>
+    
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <nav class="sticky top-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 lg:h-20">
                 <!-- Logo -->
-                <a href="{% url 'home' %}" class="flex items-center gap-3 hover:opacity-80 transition duration-200">
-                    <div class="w-9 h-9 lg:w-10 lg:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-                        <span class="text-white font-bold text-base">JB</span>
+                <a href="{% url 'home' %}" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 bg-black dark:bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <span class="text-white dark:text-black font-bold text-sm">JB</span>
                     </div>
-                    <span class="text-xl lg:text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">JobBoard</span>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">Job<span class="text-indigo-600 dark:text-indigo-400">Board</span></span>
                 </a>
                 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-6 lg:gap-8">
-                    <a href="{% url 'home' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Home</a>
-                    <a href="{% url 'job_list' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Browse Jobs</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="{% url 'home' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="{% url 'job_list' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Find Jobs</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Companies</a>
+                    <a href="{% url 'career_advice' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Resources</a>
+                    
                     {% if user.is_authenticated %}
                         {% if user.user_type == 'employer' %}
-                            <a href="{% url 'post_job' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Post Job</a>
-                            <a href="{% url 'my_jobs' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">My Jobs</a>
-                        {% else %}
-                            <a href="{% url 'my_applications' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Applications</a>
-                            <a href="{% url 'manage_resumes' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Resumes</a>
-                            <a href="{% url 'saved_jobs' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Saved Jobs</a>
+                            <a href="{% url 'post_job' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm">Post Job</a>
                         {% endif %}
-                        <a href="{% url 'dashboard' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-semibold">Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 font-medium text-sm">Dashboard</a>
                     {% endif %}
                 </div>
                 
-                <!-- Right side -->
-                <div class="hidden md:flex items-center gap-3 lg:gap-4">
+                <!-- Right Side -->
+                <div class="hidden md:flex items-center gap-4">
                     {% if user.is_authenticated %}
                         <div class="relative">
                             <button id="profileBtn" class="flex items-center gap-2 focus:outline-none group">
                                 {% if user.profile_picture and user.profile_picture.url %}
-                                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-9 h-9 lg:w-10 lg:h-10 rounded-full object-cover border-2 border-indigo-500 group-hover:border-indigo-600 transition">
+                                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-9 h-9 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700 group-hover:border-indigo-500 transition-all duration-200">
                                 {% else %}
-                                    <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-md">
+                                    <div class="w-9 h-9 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform duration-200">
                                         {{ user.username|make_list|first|upper }}
                                     </div>
                                 {% endif %}
-                                <span class="text-gray-700 dark:text-gray-300 font-semibold hidden lg:inline">{{ user.get_full_name|default:user.username }}</span>
                                 <i class="fas fa-chevron-down text-gray-500 text-xs transition-transform duration-200 group-hover:rotate-180"></i>
                             </button>
                             
-                            <div id="profileDropdown" class="absolute right-0 mt-3 w-60 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-2 opacity-0 invisible transition-all duration-200 z-50 border border-gray-100 dark:border-gray-700">
-                                <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                                    <p class="text-gray-900 dark:text-white font-bold text-base">{{ user.get_full_name|default:user.username }}</p>
-                                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{{ user.user_type|title }}</p>
-                                    <p class="text-gray-400 dark:text-gray-500 text-xs mt-1">{{ user.email }}</p>
+                            <div id="profileDropdown" class="absolute right-0 mt-3 w-56 bg-white dark:bg-gray-900 rounded-xl shadow-2xl py-2 opacity-0 invisible transition-all duration-200 z-50 border border-gray-100 dark:border-gray-800">
+                                <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+                                    <p class="text-gray-900 dark:text-white font-semibold text-sm">{{ user.get_full_name|default:user.username }}</p>
+                                    <p class="text-gray-500 text-xs mt-0.5">{{ user.user_type|title }}</p>
                                 </div>
-                                <a href="{% url 'profile' %}" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium">📋 My Profile</a>
-                                <a href="{% url 'dashboard' %}" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium">📊 Dashboard</a>
+                                <a href="{% url 'profile' %}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"><i class="fas fa-user mr-2 w-4"></i> Profile</a>
+                                <a href="{% url 'dashboard' %}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"><i class="fas fa-chart-line mr-2 w-4"></i> Dashboard</a>
                                 {% if user.user_type == 'job_seeker' %}
-                                <a href="{% url 'manage_resumes' %}" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium">📄 My Resumes</a>
-                                <a href="{% url 'saved_jobs' %}" class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium">⭐ Saved Jobs</a>
+                                <a href="{% url 'saved_jobs' %}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"><i class="fas fa-bookmark mr-2 w-4"></i> Saved Jobs</a>
+                                <a href="{% url 'manage_resumes' %}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"><i class="fas fa-file-alt mr-2 w-4"></i> Resumes</a>
                                 {% endif %}
-                                <div class="border-t border-gray-100 dark:border-gray-700 mt-1 pt-1">
-                                    <a href="{% url 'logout' %}" class="block px-4 py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition font-medium">🚪 Sign Out</a>
+                                <div class="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                                    <a href="{% url 'logout' %}" class="block px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200"><i class="fas fa-sign-out-alt mr-2 w-4"></i> Sign Out</a>
                                 </div>
                             </div>
                         </div>
                     {% else %}
-                        <a href="{% url 'login' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition font-semibold">Log in</a>
-                        <a href="{% url 'register' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition shadow-md hover:shadow-lg">Get Started</a>
+                        <a href="{% url 'login' %}" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition-all duration-200 font-medium text-sm">Log in</a>
+                        <a href="{% url 'register' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:scale-105 transition-all duration-300">Sign Up</a>
                     {% endif %}
                 </div>
                 
-                <!-- Mobile menu button -->
-                <button id="mobileMenuBtn" class="md:hidden text-gray-700 dark:text-gray-400 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition">
-                    <i id="mobileMenuIcon" class="fas fa-bars text-2xl"></i>
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-700 dark:text-gray-400 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200">
+                    <i id="mobileMenuIcon" class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
     </nav>
     
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg">
-        <div class="px-4 py-4 space-y-2">
-            <a href="{% url 'home' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">🏠 Home</a>
-            <a href="{% url 'job_list' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">💼 Browse Jobs</a>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-black border-b border-gray-100 dark:border-gray-800 shadow-lg transition-all duration-300">
+        <div class="px-4 py-4 space-y-1">
+            <a href="{% url 'home' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Home</a>
+            <a href="{% url 'job_list' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Find Jobs</a>
+            <a href="#" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Companies</a>
             {% if user.is_authenticated %}
-                {% if user.user_type == 'employer' %}
-                    <a href="{% url 'post_job' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">✏️ Post Job</a>
-                    <a href="{% url 'my_jobs' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">📋 My Jobs</a>
-                {% else %}
-                    <a href="{% url 'my_applications' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">📑 Applications</a>
-                    <a href="{% url 'manage_resumes' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">📄 Resumes</a>
-                    <a href="{% url 'saved_jobs' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">⭐ Saved Jobs</a>
-                {% endif %}
-                <a href="{% url 'dashboard' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">📊 Dashboard</a>
-                <a href="{% url 'profile' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">👤 Profile</a>
-                <div class="border-t border-gray-200 dark:border-gray-700 my-2 pt-2">
-                    <a href="{% url 'logout' %}" class="block py-3 px-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition font-medium">🚪 Sign Out</a>
+                <a href="{% url 'dashboard' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Dashboard</a>
+                <a href="{% url 'profile' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Profile</a>
+                <div class="border-t border-gray-100 dark:border-gray-800 my-2 pt-2">
+                    <a href="{% url 'logout' %}" class="block py-3 px-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-200 font-medium">Sign Out</a>
                 </div>
             {% else %}
-                <a href="{% url 'login' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition font-medium">🔐 Log in</a>
-                <a href="{% url 'register' %}" class="block py-3 px-3 bg-indigo-600 text-white rounded-lg font-bold text-center">🚀 Get Started</a>
+                <a href="{% url 'login' %}" class="block py-3 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium">Log in</a>
+                <a href="{% url 'register' %}" class="block py-3 px-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold text-center">Sign Up</a>
             {% endif %}
         </div>
     </div>
@@ -126,10 +123,11 @@
     {% if messages %}
         <div class="fixed top-20 right-4 z-50 space-y-2 max-w-sm">
             {% for message in messages %}
-                <div class="px-5 py-3 rounded-xl shadow-xl text-base font-medium 
-                    {% if message.tags == 'success' %}bg-green-50 dark:bg-green-900/40 text-green-800 dark:text-green-200 border-l-4 border-green-500
-                    {% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900/40 text-red-800 dark:text-red-200 border-l-4 border-red-500
-                    {% else %}bg-blue-50 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 border-l-4 border-blue-500{% endif %}">
+                <div class="px-5 py-3 rounded-xl shadow-xl text-sm font-medium animate-slide-in-right
+                    {% if message.tags == 'success' %}bg-green-50 text-green-800 border-l-4 border-green-500
+                    {% elif message.tags == 'error' %}bg-red-50 text-red-800 border-l-4 border-red-500
+                    {% else %}bg-blue-50 text-blue-800 border-l-4 border-blue-500{% endif %}">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %} mr-2"></i>
                     {{ message }}
                 </div>
             {% endfor %}
@@ -137,74 +135,92 @@
     {% endif %}
     
     <!-- Main Content -->
-    <main>
+    <main class="animate-fade-in">
         {% block content %}
         {% endblock %}
     </main>
     
     <!-- Footer -->
-    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
+    <footer class="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-gray-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                <div class="col-span-2">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">JB</span>
+                        <div class="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
+                            <span class="text-white dark:text-black font-bold text-xs">JB</span>
                         </div>
-                        <span class="text-lg font-bold text-gray-900 dark:text-white">JobBoard</span>
+                        <span class="text-lg font-bold text-gray-900 dark:text-white">Job<span class="text-indigo-600">Board</span></span>
                     </div>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Find your dream job or hire the best talent with JobBoard - The modern job platform.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">Find your dream job or hire the best talent with JobBoard - The modern job platform connecting professionals worldwide.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-base">For Job Seekers</h4>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-4">For Job Seekers</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'job_list' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Browse Jobs</a></li>
-                        <li><a href="{% url 'career_advice' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Career Advice</a></li>
-                        <li><a href="{% url 'salary_guide' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Salary Guide</a></li>
-                        <li><a href="{% url 'interview_tips' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Interview Tips</a></li>
+                        <li><a href="{% url 'job_list' %}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Browse Jobs</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Career Advice</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Salary Guide</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Interview Tips</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-base">For Employers</h4>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-4">For Employers</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'post_job' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Post a Job</a></li>
-                        <li><a href="#" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Browse Candidates</a></li>
-                        <li><a href="{% url 'pricing' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Pricing Plans</a></li>
-                        <li><a href="#" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Recruitment Solutions</a></li>
+                        <li><a href="{% url 'post_job' %}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Post a Job</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Browse Candidates</a></li>
+                        <li><a href="{% url 'pricing' %}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Pricing Plans</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Recruitment Solutions</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-base">Company</h4>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-4">Company</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'about' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">About Us</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Contact</a></li>
-                        <li><a href="#" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition text-sm">Terms of Service</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">About</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Contact</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Privacy</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200">Terms</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-400 text-sm">
-                <p>&copy; {% now "Y" %} JobBoard. All rights reserved. Built for job seekers and employers.</p>
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-400 text-xs">
+                <p>&copy; {% now "Y" %} JobBoard. All rights reserved.</p>
             </div>
         </div>
     </footer>
     
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 0.5s ease-out; }
+        .animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+        .animate-fade-up { animation: fade-up 0.6s ease-out; }
+        .animation-delay-100 { animation-delay: 0.1s; }
+        .animation-delay-200 { animation-delay: 0.2s; }
+        .animation-delay-300 { animation-delay: 0.3s; }
+        .animation-delay-400 { animation-delay: 0.4s; }
+        .animation-delay-500 { animation-delay: 0.5s; }
+    </style>
+    
     <script>
-        // Dark mode based on system preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // Dark mode based on system
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
         }
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-            if (e.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            if (e.matches) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
         });
         
-        // Profile Dropdown
+        // Profile dropdown
         const profileBtn = document.getElementById('profileBtn');
         const profileDropdown = document.getElementById('profileDropdown');
         if (profileBtn && profileDropdown) {
@@ -239,7 +255,6 @@
                 }
             });
         }
-        
         document.querySelectorAll('#mobileMenu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');

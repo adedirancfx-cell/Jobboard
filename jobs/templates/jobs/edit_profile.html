@@ -3,75 +3,72 @@
 {% block title %}Edit Profile - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto">
-    <div class="card-bg rounded-2xl p-8">
-        <h2 class="text-3xl font-bold text-center text-white mb-6">Edit Profile</h2>
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="card p-6 md:p-8">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Edit Profile</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Update your personal information</p>
         
-        <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form method="POST" enctype="multipart/form-data" class="space-y-5">
             {% csrf_token %}
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-gray-300 mb-2">First Name</label>
-                    <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" 
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-gray-300 mb-2">Last Name</label>
-                    <input type="text" name="last_name" value="{{ user.last_name }}" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+                    <input type="text" name="last_name" value="{{ user.last_name }}" 
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
                 </div>
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Email *</label>
-                <input type="email" name="email" value="{{ user.email }}" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input type="email" name="email" value="{{ user.email }}" required 
+                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Username</label>
-                <input type="text" name="username" value="{{ user.username }}" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
+                <input type="text" name="username" value="{{ user.username }}" required 
+                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Phone Number</label>
-                <input type="tel" name="phone_number" value="{{ user.phone_number }}" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                <input type="tel" name="phone_number" value="{{ user.phone_number }}" 
+                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Location</label>
-                <input type="text" name="location" value="{{ user.location }}" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white" placeholder="City, Country">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
+                <input type="text" name="location" value="{{ user.location }}" 
+                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
+                       placeholder="e.g., Lagos, Nigeria">
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Bio</label>
-                <textarea name="bio" rows="4" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">{{ user.bio }}</textarea>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
+                <textarea name="bio" rows="4" 
+                          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">{{ user.bio }}</textarea>
             </div>
             
             <div>
-                <label class="block text-gray-300 mb-2">Profile Picture</label>
-                {% if user.profile_picture %}
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Profile Picture</label>
+                {% if user.profile_picture and user.profile_picture.url %}
                     <div class="mb-2">
-                        <img src="{{ user.profile_picture.url }}" class="w-20 h-20 rounded-full object-cover">
+                        <img src="{{ user.profile_picture.url }}" class="w-16 h-16 rounded-full object-cover">
                     </div>
                 {% endif %}
-                <input type="file" name="profile_picture" accept="image/*" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-500 focus:outline-none text-white">
+                <input type="file" name="profile_picture" accept="image/*" 
+                       class="w-full text-sm text-gray-500 dark:text-gray-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-600 hover:file:bg-primary-100 dark:file:bg-primary-900/30 dark:file:text-primary-400">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Upload a profile picture (optional)</p>
             </div>
             
-            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition mt-4">
-                Save Changes
-            </button>
+            <button type="submit" class="btn-primary w-full py-2.5 text-base">Save Changes</button>
         </form>
-        
-        <div class="mt-6 text-center">
-            <a href="{% url 'profile' %}" class="text-gray-400 hover:text-white transition">Cancel</a>
-        </div>
     </div>
 </div>
-
-<style>
-    .card-bg {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-</style>
 {% endblock %}

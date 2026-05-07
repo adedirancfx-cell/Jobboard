@@ -3,104 +3,82 @@
 {% block title %}{{ job.title }} - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto">
-    <div class="card-bg rounded-2xl p-8">
-        <div class="flex justify-between items-start mb-6">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="card p-6 md:p-8">
+        <!-- Header -->
+        <div class="flex flex-wrap justify-between items-start gap-4 mb-6">
             <div>
-                <h1 class="text-3xl font-bold text-white mb-2">{{ job.title }}</h1>
-                <p class="text-purple-400 text-lg">{{ job.employer.company_name|default:job.employer.username }}</p>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ job.title }}</h1>
+                <p class="text-primary-600 dark:text-primary-400">{{ job.employer.company_name|default:job.employer.username }}</p>
             </div>
-            <span class="px-3 py-1 bg-purple-600 text-white rounded-full text-sm">{{ job.get_job_type_display }}</span>
+            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+                {{ job.get_job_type_display }}
+            </span>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-map-marker-alt text-purple-400"></i>
-                <span>{{ job.location }}</span>
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <i class="fas fa-map-marker-alt w-5 text-gray-400"></i>
+                <span class="ml-2">{{ job.location }}</span>
             </div>
             {% if job.salary_min and job.salary_max %}
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-money-bill-wave text-purple-400"></i>
-                <span>₦{{ job.salary_min|floatformat:0 }} - ₦{{ job.salary_max|floatformat:0 }}/month</span>
-            </div>
-            {% elif job.salary_min %}
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-money-bill-wave text-purple-400"></i>
-                <span>From ₦{{ job.salary_min|floatformat:0 }}/month</span>
-            </div>
-            {% elif job.salary_max %}
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-money-bill-wave text-purple-400"></i>
-                <span>Up to ₦{{ job.salary_max|floatformat:0 }}/month</span>
-            </div>
-            {% else %}
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-money-bill-wave text-purple-400"></i>
-                <span>Salary not specified</span>
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <i class="fas fa-money-bill-wave w-5 text-gray-400"></i>
+                <span class="ml-2">₦{{ job.salary_min|floatformat:0 }} - ₦{{ job.salary_max|floatformat:0 }}/month</span>
             </div>
             {% endif %}
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-calendar-alt text-purple-400"></i>
-                <span>Posted: {{ job.created_at|date:"F j, Y" }}</span>
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <i class="fas fa-calendar-alt w-5 text-gray-400"></i>
+                <span class="ml-2">Posted: {{ job.created_at|date:"F j, Y" }}</span>
             </div>
-            <div class="flex items-center gap-2 text-gray-300">
-                <i class="fas fa-tag text-purple-400"></i>
-                <span>{{ job.get_category_display }}</span>
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <i class="fas fa-tag w-5 text-gray-400"></i>
+                <span class="ml-2">{{ job.get_category_display }}</span>
             </div>
         </div>
         
+        <!-- Description -->
         <div class="mb-6">
-            <h2 class="text-xl font-bold text-white mb-3">Job Description</h2>
-            <div class="text-gray-300 whitespace-pre-line">{{ job.description }}</div>
+            <h2 class="text-md font-semibold text-gray-900 dark:text-white mb-2">Job Description</h2>
+            <div class="text-gray-600 dark:text-gray-400 whitespace-pre-line">{{ job.description }}</div>
         </div>
         
-        <div class="mb-6">
-            <h2 class="text-xl font-bold text-white mb-3">Requirements</h2>
-            <div class="text-gray-300 whitespace-pre-line">{{ job.requirements }}</div>
+        <!-- Requirements -->
+        <div class="mb-8">
+            <h2 class="text-md font-semibold text-gray-900 dark:text-white mb-2">Requirements</h2>
+            <div class="text-gray-600 dark:text-gray-400 whitespace-pre-line">{{ job.requirements }}</div>
         </div>
         
-        <div class="flex gap-4 mt-6 flex-wrap">
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
             {% if user.is_authenticated %}
                 {% if user.user_type == 'job_seeker' %}
                     {% if has_applied %}
-                        <button disabled class="flex-1 bg-gray-500 text-white py-3 rounded-lg cursor-not-allowed">
+                        <button disabled class="btn-secondary opacity-50 cursor-not-allowed">
                             Already Applied
                         </button>
                     {% else %}
-                        <a href="{% url 'apply_job' job.id %}" class="flex-1 bg-purple-600 text-white py-3 rounded-lg text-center hover:bg-purple-700 transition">
+                        <a href="{% url 'apply_job' job.id %}" class="btn-primary">
                             Apply Now
                         </a>
                     {% endif %}
+                    <a href="{% url 'save_job' job.id %}" class="btn-secondary">
+                        <i class="{% if is_saved %}fas fa-bookmark{% else %}far fa-bookmark{% endif %} mr-1"></i>
+                        {% if is_saved %}Saved{% else %}Save Job{% endif %}
+                    </a>
                 {% elif user.user_type == 'employer' and user == job.employer %}
-                    <a href="{% url 'view_applications' job.id %}" class="flex-1 bg-blue-600 text-white py-3 rounded-lg text-center hover:bg-blue-700 transition">
+                    <a href="{% url 'view_applications' job.id %}" class="btn-primary">
                         View Applications
                     </a>
                 {% endif %}
             {% else %}
-                <a href="{% url 'login' %}" class="flex-1 bg-purple-600 text-white py-3 rounded-lg text-center hover:bg-purple-700 transition">
-                    Login to Apply
-                </a>
+                <a href="{% url 'login' %}" class="btn-primary">Login to Apply</a>
             {% endif %}
-            
-            {% if user.is_authenticated and user.user_type == 'job_seeker' %}
-                <a href="{% url 'save_job' job.id %}" class="px-6 py-3 border border-purple-400 text-purple-400 rounded-lg hover:bg-purple-600 hover:text-white transition inline-flex items-center gap-2">
-                    <i class="{% if is_saved %}fas fa-bookmark{% else %}far fa-bookmark{% endif %}"></i>
-                    {% if is_saved %}Saved{% else %}Save Job{% endif %}
-                </a>
-            {% endif %}
-            
-            <a href="{% url 'job_list' %}" class="px-6 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition">
-                Back to Jobs
+            <a href="{% url 'job_list' %}" class="btn-secondary">
+                <i class="fas fa-arrow-left mr-1"></i> Back to Jobs
             </a>
         </div>
     </div>
 </div>
-
-<style>
-    .card-bg {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-</style>
 {% endblock %}

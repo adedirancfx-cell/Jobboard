@@ -56,6 +56,7 @@ class Job(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_featured = models.BooleanField(default=False, help_text="Show this job on homepage featured section")
     
     def __str__(self):
         return self.title
@@ -82,6 +83,7 @@ class Application(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     notification_sent = models.BooleanField(default=False)
     last_status_update = models.DateTimeField(auto_now=True)
+
     
     class Meta:
         unique_together = ['job', 'job_seeker']

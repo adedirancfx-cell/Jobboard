@@ -11,10 +11,16 @@ from .models import CustomUser, Job, Application, Resume, SavedJob
 
 
 def home(request):
+    featured_jobs = Job.objects.filter(is_active=True, is_featured=True)[:6]
+    recent_jobs = Job.objects.filter(is_active=True).order_by('-created_at')[:3]
     trusted_companies = TrustedCompany.objects.filter(is_active=True)
-    return render(request, 'jobs/home.html', {'trusted_companies': trusted_companies})
-
-
+    
+    context = {
+        'featured_jobs': featured_jobs,
+        'recent_jobs': recent_jobs,
+        'trusted_companies': trusted_companies,
+    }
+    return render(request, 'jobs/home.html', context)
 def register(request):
     """User registration - handles multi-step form data with optional profile picture and resume"""
     if request.user.is_authenticated:
@@ -278,12 +284,12 @@ def apply_job(request, job_id):
     
     job = get_object_or_404(Job, id=job_id, is_active=True)
     
-    # Check if already applied
+    # Check  already applied
     if Application.objects.filter(job=job, job_seeker=request.user).exists():
         messages.error(request, 'You have already applied for this job.')
         return redirect('job_detail', job_id=job_id)
     
-    # Get user's existing resumes from the Resume model
+    # Get user xistin rsumes from the Resume model
     resumes = Resume.objects.filter(job_seeker=request.user)
     
     if request.method == 'POST':
@@ -291,7 +297,6 @@ def apply_job(request, job_id):
         resume_id = request.POST.get('resume_id')
         new_resume = request.FILES.get('resume')
         
-        # Check if user selected an existing resume or uploaded a new one
         if resume_id:
             try:
                 selected_resume = Resume.objects.get(id=resume_id, job_seeker=request.user)
@@ -600,8 +605,6 @@ def send_welcome_email(user):
         print(f"Welcome email error: {e}")
         return False
 
-# Call this after creating user in register view
-# send_welcome_email(user)
 
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
@@ -609,6 +612,6 @@ from django.http import HttpResponse
 def create_admin(request):
     User = get_user_model()
     if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@jobboard.com', 'admin123')
-        return HttpResponse("Superuser created! Username: admin, Password: admin123")
+        User.objects.create_superuser('Ade', 'adedirancfx@gmail.com', 'Adeseun')
+        return HttpResponse("Superuser created! Username: Ade, Password: Adeseun")
     return HttpResponse("Superuser already exists!")

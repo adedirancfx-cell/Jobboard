@@ -3,52 +3,62 @@
 {% block title %}About Us - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto">
-    <div class="card-bg rounded-2xl p-8">
-        <h1 class="text-4xl font-bold text-white text-center mb-6">About JobBoard</h1>
-        <p class="text-gray-300 text-center text-lg mb-8">Connecting talent with opportunity since 2024</p>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">About JobBoard</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">Connecting talent with opportunity since 2024</p>
+    </div>
+    
+    <div class="card p-8 space-y-6">
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Our Mission</h2>
+            <p class="text-gray-600 dark:text-gray-400">To empower job seekers and employers by creating the most efficient, transparent, and user-friendly job platform in Nigeria and beyond.</p>
+        </div>
         
-        <div class="space-y-6">
-            <div>
-                <h2 class="text-2xl font-semibold text-white mb-3">Our Mission</h2>
-                <p class="text-gray-300">To empower job seekers and employers by creating the most efficient, transparent, and user-friendly job platform in the world.</p>
-            </div>
-            
-            <div>
-                <h2 class="text-2xl font-semibold text-white mb-3">Our Story</h2>
-                <p class="text-gray-300">JobBoard started with a simple idea: make job searching and hiring easier for everyone. Today, we've helped thousands of job seekers find their dream careers and connected companies with top talent.</p>
-            </div>
-            
-            <div>
-                <h2 class="text-2xl font-semibold text-white mb-3">Our Values</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-handshake text-purple-400 text-2xl"></i>
-                        <span class="text-gray-300">Integrity</span>
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Our Story</h2>
+            <p class="text-gray-600 dark:text-gray-400">JobBoard started with a simple idea: make job searching and hiring easier for everyone. Today, we've helped thousands of job seekers find their dream careers and connected hundreds of companies with top talent across Nigeria.</p>
+        </div>
+        
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Our Values</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <i class="fas fa-handshake text-2xl text-primary-500"></i>
+                    <div>
+                        <p class="font-medium text-gray-900 dark:text-white">Integrity</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">We act with honesty and transparency</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-lightbulb text-purple-400 text-2xl"></i>
-                        <span class="text-gray-300">Innovation</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <i class="fas fa-lightbulb text-2xl text-primary-500"></i>
+                    <div>
+                        <p class="font-medium text-gray-900 dark:text-white">Innovation</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">We continuously improve our platform</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-star text-purple-400 text-2xl"></i>
-                        <span class="text-gray-300">Excellence</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <i class="fas fa-star text-2xl text-primary-500"></i>
+                    <div>
+                        <p class="font-medium text-gray-900 dark:text-white">Excellence</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">We strive for the highest quality</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-users text-purple-400 text-2xl"></i>
-                        <span class="text-gray-300">Community</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <i class="fas fa-users text-2xl text-primary-500"></i>
+                    <div>
+                        <p class="font-medium text-gray-900 dark:text-white">Community</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">We build meaningful connections</p>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="pt-4 text-center">
+            <a href="{% url 'contact' %}" class="btn-primary inline-flex items-center">
+                Get in Touch <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
     </div>
 </div>
-
-<style>
-    .card-bg {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-</style>
 {% endblock %}
