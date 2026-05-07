@@ -3,314 +3,108 @@
 {% block title %}Register - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 py-8 lg:py-12">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
-            <h1 class="text-2xl font-bold text-white">Create an Account</h1>
-            <p class="text-indigo-100 text-sm mt-1">Join thousands of professionals</p>
+<div class="max-w-3xl mx-auto px-4 py-8 lg:py-12">
+    <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
+            <h1 class="text-3xl font-bold text-white">Create Your Account</h1>
+            <p class="mt-2 text-indigo-100 text-sm">Get started with JobBoard and discover opportunities.</p>
         </div>
-        
-        <div class="p-6">
-            <!-- Progress Steps -->
-            <div class="flex justify-between mb-8">
-                <div class="text-center flex-1">
-                    <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-bold" id="step1-indicator">1</div>
-                    <p class="text-xs font-semibold text-gray-600 dark:text-gray-400">Account</p>
-                </div>
-                <div class="text-center flex-1">
-                    <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 flex items-center justify-center mx-auto mb-2 font-bold" id="step2-indicator">2</div>
-                    <p class="text-xs font-semibold text-gray-600 dark:text-gray-400">Profile</p>
-                </div>
-                <div class="text-center flex-1">
-                    <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 flex items-center justify-center mx-auto mb-2 font-bold" id="step3-indicator">3</div>
-                    <p class="text-xs font-semibold text-gray-600 dark:text-gray-400">Role</p>
-                </div>
-            </div>
-            
-            <!-- Step 1: Account Info -->
-            <div id="step1" class="step">
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Create your account</h2>
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">First Name *</label>
-                            <input type="text" id="first_name" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Last Name *</label>
-                            <input type="text" id="last_name" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                        </div>
+
+        <div class="p-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="first_name">First Name *</label>
+                        <input id="first_name" name="first_name" type="text" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Email Address *</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Username *</label>
-                        <input type="text" id="username" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Password *</label>
-                        <input type="password" id="password1" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                        <p class="text-gray-500 text-xs mt-1">8+ characters, with letters and numbers</p>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Confirm Password *</label>
-                        <input type="password" id="password2" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="last_name">Last Name *</label>
+                        <input id="last_name" name="last_name" type="text" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
-                <button onclick="nextStep()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold text-base transition shadow-md mt-6">Next Step →</button>
-            </div>
-            
-            <!-- Step 2: Profile Info -->
-            <div id="step2" class="step" style="display: none;">
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Tell us about yourself</h2>
-                <p class="text-gray-500 text-sm mb-4">These fields are optional - you can skip</p>
-                
-                <div class="space-y-4">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Profile Picture</label>
-                        <input type="file" id="profile_picture" accept="image/*" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                        <p class="text-gray-500 text-xs mt-1">Upload a profile picture (optional)</p>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="email">Email Address *</label>
+                        <input id="email" name="email" type="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Phone Number</label>
-                        <input type="tel" id="phone_number" placeholder="+234 123 456 7890" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Location</label>
-                        <input type="text" id="location" placeholder="Lagos, Nigeria" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Bio</label>
-                        <textarea id="bio" rows="3" placeholder="Tell us about yourself..." class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"></textarea>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="username">Username *</label>
+                        <input id="username" name="username" type="text" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="prevStep()" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold transition">Back</button>
-                    <button onclick="nextStep2()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold transition">Next Step →</button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="password1">Password *</label>
+                        <input id="password1" name="password1" type="password" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="password2">Confirm Password *</label>
+                        <input id="password2" name="password2" type="password" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Step 3: Role Selection -->
-            <div id="step3" class="step" style="display: none;">
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">I'm a...</h2>
-                <div class="space-y-4">
-                    <button onclick="selectRole('job_seeker')" class="w-full p-5 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-left">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-user-graduate text-2xl text-indigo-600"></i>
-                            </div>
+
+                <div class="rounded-3xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5">
+                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Account Type *</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 cursor-pointer">
+                            <input type="radio" name="user_type" value="job_seeker" class="h-4 w-4 text-indigo-600" required>
                             <div>
-                                <p class="font-bold text-gray-900 dark:text-white text-lg">Job Seeker</p>
-                                <p class="text-sm text-gray-500">Looking for job opportunities</p>
+                                <p class="font-semibold text-gray-900 dark:text-white">Job Seeker</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Apply for roles and manage applications.</p>
                             </div>
-                        </div>
-                    </button>
-                    
-                    <button onclick="selectRole('employer')" class="w-full p-5 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-left">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-building text-2xl text-indigo-600"></i>
-                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 cursor-pointer">
+                            <input type="radio" name="user_type" value="employer" class="h-4 w-4 text-indigo-600" required>
                             <div>
-                                <p class="font-bold text-gray-900 dark:text-white text-lg">Employer</p>
-                                <p class="text-sm text-gray-500">Hiring for my company</p>
+                                <p class="font-semibold text-gray-900 dark:text-white">Employer</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Post jobs and review candidates.</p>
                             </div>
-                        </div>
-                    </button>
+                        </label>
+                    </div>
                 </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="prevStep2()" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold transition">Back</button>
+
+                <div id="company_field" class="hidden">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="company_name">Company Name *</label>
+                    <input id="company_name" name="company_name" type="text" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">This is required when you register as an employer.</p>
                 </div>
-            </div>
-            
-            <!-- Company Field (for employers) -->
-            <div id="company_field" style="display: none;" class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Company Name *</label>
-                <input type="text" id="company_name" placeholder="e.g., Google, Microsoft, Amazon" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                <div class="flex gap-3 mt-4">
-                    <button onclick="submitWithRole()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold transition">Complete Registration</button>
-                    <button onclick="hideCompanyField()" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold transition">Back</button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="phone_number">Phone Number</label>
+                        <input id="phone_number" name="phone_number" type="tel" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="location">Location</label>
+                        <input id="location" name="location" type="text" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Resume Field (for job seekers) -->
-            <div id="resume_field" style="display: none;" class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4 mb-4">
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">📄 Add Your Resume (Optional)</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">You can upload your resume now or add it later from your dashboard</p>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="bio">Bio</label>
+                    <textarea id="bio" name="bio" rows="4" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500" placeholder="Tell us a little about yourself..."></textarea>
                 </div>
-                <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Resume File</label>
-                <input type="file" id="resume_file" accept=".pdf,.doc,.docx" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                <div class="flex gap-3 mt-4">
-                    <button onclick="submitWithResume()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold transition">Complete Registration</button>
-                    <button onclick="skipResume()" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold transition">Skip for Now</button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="profile_picture">Profile Picture</label>
+                        <input id="profile_picture" name="profile_picture" type="file" accept="image/*" class="w-full text-sm text-gray-700 dark:text-gray-200 file:mr-4 file:px-4 file:py-2 file:rounded-full file:border-0 file:text-sm file:bg-indigo-600 file:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="resume">Resume (Optional)</label>
+                        <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx" class="w-full text-sm text-gray-700 dark:text-gray-200 file:mr-4 file:px-4 file:py-2 file:rounded-full file:border-0 file:text-sm file:bg-indigo-600 file:text-white">
+                    </div>
                 </div>
-            </div>
+
+                <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 text-base font-semibold transition">Create Account</button>
+                <p class="text-center text-sm text-gray-500 dark:text-gray-400">Already have an account? <a href="{% url 'login' %}" class="text-indigo-600 hover:text-indigo-500">Log in</a></p>
+            </form>
         </div>
     </div>
 </div>
 
-<style>
-    .step {
-        transition: all 0.3s ease;
-    }
-</style>
-
-<script>
-    let selectedRole = '';
-    let profilePictureFile = null;
-    
-    // Track profile picture
-    document.getElementById('profile_picture')?.addEventListener('change', function(e) {
-        profilePictureFile = e.target.files[0];
-    });
-    
-    function nextStep() {
-        const firstName = document.getElementById('first_name').value;
-        const lastName = document.getElementById('last_name').value;
-        const email = document.getElementById('email').value;
-        const username = document.getElementById('username').value;
-        const password1 = document.getElementById('password1').value;
-        const password2 = document.getElementById('password2').value;
-        
-        if (!firstName || !lastName || !email || !username || !password1 || !password2) {
-            alert('Please fill in all required fields');
-            return;
-        }
-        
-        if (password1 !== password2) {
-            alert('Passwords do not match');
-            return;
-        }
-        
-        // Save to hidden fields (create them dynamically)
-        if (!document.getElementById('hidden_first_name')) {
-            const hiddenFields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2'];
-            hiddenFields.forEach(field => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.id = `hidden_${field}`;
-                document.querySelector('body').appendChild(input);
-            });
-        }
-        
-        document.getElementById('hidden_first_name').value = firstName;
-        document.getElementById('hidden_last_name').value = lastName;
-        document.getElementById('hidden_email').value = email;
-        document.getElementById('hidden_username').value = username;
-        document.getElementById('hidden_password1').value = password1;
-        document.getElementById('hidden_password2').value = password2;
-        
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-        document.getElementById('step1-indicator').className = 'w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-        document.getElementById('step2-indicator').className = 'w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-    }
-    
-    function nextStep2() {
-        document.getElementById('step2').style.display = 'none';
-        document.getElementById('step3').style.display = 'block';
-        document.getElementById('step2-indicator').className = 'w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-        document.getElementById('step3-indicator').className = 'w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-    }
-    
-    function prevStep() {
-        document.getElementById('step2').style.display = 'none';
-        document.getElementById('step1').style.display = 'block';
-        document.getElementById('step2-indicator').className = 'w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 flex items-center justify-center mx-auto mb-2 font-bold';
-        document.getElementById('step1-indicator').className = 'w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-    }
-    
-    function prevStep2() {
-        document.getElementById('step3').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-        document.getElementById('step3-indicator').className = 'w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 flex items-center justify-center mx-auto mb-2 font-bold';
-        document.getElementById('step2-indicator').className = 'w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-bold';
-    }
-    
-    function selectRole(role) {
-        selectedRole = role;
-        
-        if (role === 'employer') {
-            document.getElementById('company_field').style.display = 'block';
-            document.getElementById('step3').style.display = 'none';
-        } else {
-            document.getElementById('resume_field').style.display = 'block';
-            document.getElementById('step3').style.display = 'none';
-        }
-    }
-    
-    function submitWithRole() {
-        const companyName = document.getElementById('company_name').value;
-        if (!companyName) {
-            alert('Please enter your company name');
-            return;
-        }
-        
-        const formData = new FormData();
-        formData.append('first_name', document.getElementById('hidden_first_name').value);
-        formData.append('last_name', document.getElementById('hidden_last_name').value);
-        formData.append('email', document.getElementById('hidden_email').value);
-        formData.append('username', document.getElementById('hidden_username').value);
-        formData.append('password1', document.getElementById('hidden_password1').value);
-        formData.append('password2', document.getElementById('hidden_password2').value);
-        formData.append('phone_number', document.getElementById('phone_number').value);
-        formData.append('location', document.getElementById('location').value);
-        formData.append('bio', document.getElementById('bio').value);
-        formData.append('user_type', 'employer');
-        formData.append('company_name', companyName);
-        
-        if (profilePictureFile) {
-            formData.append('profile_picture', profilePictureFile);
-        }
-        
-        fetch("{% url 'register' %}", {
-            method: 'POST',
-            body: formData,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
-        }).then(response => {
-            if (response.redirected) window.location.href = response.url;
-            else alert('Registration failed');
-        }).catch(error => alert('Error: ' + error));
-    }
-    
-    function submitWithResume() {
-        const formData = new FormData();
-        formData.append('first_name', document.getElementById('hidden_first_name').value);
-        formData.append('last_name', document.getElementById('hidden_last_name').value);
-        formData.append('email', document.getElementById('hidden_email').value);
-        formData.append('username', document.getElementById('hidden_username').value);
-        formData.append('password1', document.getElementById('hidden_password1').value);
-        formData.append('password2', document.getElementById('hidden_password2').value);
-        formData.append('phone_number', document.getElementById('phone_number').value);
-        formData.append('location', document.getElementById('location').value);
-        formData.append('bio', document.getElementById('bio').value);
-        formData.append('user_type', 'job_seeker');
-        
-        if (profilePictureFile) formData.append('profile_picture', profilePictureFile);
-        
-        const resumeFile = document.getElementById('resume_file').files[0];
-        if (resumeFile) formData.append('resume', resumeFile);
-        
-        fetch("{% url 'register' %}", {
-            method: 'POST',
-            body: formData,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
-        }).then(response => {
-            if (response.redirected) window.location.href = response.url;
-            else alert('Registration failed');
-        }).catch(error => alert('Error: ' + error));
-    }
-    
-    function skipResume() {
-        submitWithResume();
-    }
-    
-    function hideCompanyField() {
-        document.getElementById('company_field').style.display = 'none';
-        document.getElementById('step3').style.display = 'block';
-    }
-</script>
 {% endblock %}

@@ -131,22 +131,6 @@ class Resume(models.Model):
         super().save(*args, **kwargs)    
 
 
-# Add to models.py
-
-class Resume(models.Model):
-    """Job seeker's resume/CV model"""
-    job_seeker = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='resumes')
-    title = models.CharField(max_length=200, help_text="e.g., 'Frontend Developer Resume'")
-    resume_file = models.FileField(upload_to='resumes/')
-    is_primary = models.BooleanField(default=False)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        ordering = ['-is_primary', '-uploaded_at']
-    
-    def __str__(self):
-        return f"{self.job_seeker.username} - {self.title}"     
-
 class SavedJob(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='saved_jobs')
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='saved_by')

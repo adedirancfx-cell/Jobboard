@@ -3,183 +3,204 @@
 {% block title %}Home - Find Your Dream Job{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="relative overflow-hidden bg-white dark:bg-black">
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent dark:from-indigo-950/20"></div>
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-indigo-200/30 dark:bg-indigo-900/20 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200/30 dark:bg-purple-900/20 rounded-full blur-3xl"></div>
+<!-- Hero Section - Inspired by Apple/Stripe -->
+<section class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <!-- Background Image Overlay -->
+    <div class="absolute inset-0 opacity-5 dark:opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Cpath d=%22M0 0h100v100H0z%22 fill=%22none%22/%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2230%22 fill=%22%23667eea%22 opacity=%220.1%22/%3E%3C/svg%3E'); background-size: 200px 200px;"></div>
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div class="text-center max-w-4xl mx-auto">
-            <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 mb-6 animate-fade-up">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span class="text-base font-semibold text-gray-700 dark:text-gray-300">🔥 10,000+ jobs available now</span>
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full px-5 py-2 mb-6 shadow-sm">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">🔥 10,000+ jobs available now</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400">Join 50K+ professionals</span>
             </div>
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-gray-900 dark:text-white mb-6 animate-fade-up animation-delay-100 leading-tight">
-                Find your dream<br>job with <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">JobBoard</span>
+
+            <!-- Main Heading -->
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
+                Find your dream<br>
+                <span class="text-indigo-600 dark:text-indigo-400">job</span> with JobBoard
             </h1>
-            <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-up animation-delay-200">
-                Join over 50,000+ professionals who found their perfect career opportunity through our platform.
+
+            <!-- Subtitle -->
+            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+                The modern job platform connecting talented professionals with innovative companies worldwide.
             </p>
-            <div class="flex flex-col sm:flex-row gap-5 justify-center animate-fade-up animation-delay-300">
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'register' %}" class="group bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
-                        Get Started 
-                        <i class="fas fa-arrow-right text-base group-hover:translate-x-1 transition-transform duration-300"></i>
+                    <a href="{% url 'register' %}" class="group bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:shadow-lg shadow-md inline-flex items-center gap-2">
+                        Get Started Free
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="{% url 'job_list' %}" class="border-2 border-gray-300 dark:border-gray-700 hover:border-indigo-600 dark:hover:border-indigo-400 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:shadow-md">
+                    <a href="{% url 'job_list' %}" class="group border border-slate-300 dark:border-slate-600 hover:border-indigo-500 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-8 py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-800 inline-flex items-center gap-2">
+                        <i class="fas fa-search"></i>
                         Browse Jobs
                     </a>
                 {% else %}
-                    <a href="{% url 'dashboard' %}" class="group bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
-                        Go to Dashboard 
-                        <i class="fas fa-arrow-right text-base group-hover:translate-x-1 transition-transform duration-300"></i>
+                    <a href="{% url 'dashboard' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:shadow-lg shadow-md inline-flex items-center gap-2">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Go to Dashboard
                     </a>
                 {% endif %}
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- Stats Section -->
-<section class="py-16 bg-gray-50 dark:bg-black/50 border-t border-gray-100 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
-            <div class="animate-fade-up animation-delay-100">
-                <div class="text-5xl font-black text-gray-900 dark:text-white">10K+</div>
-                <p class="text-lg text-gray-500 mt-2">Active Jobs</p>
-            </div>
-            <div class="animate-fade-up animation-delay-200">
-                <div class="text-5xl font-black text-gray-900 dark:text-white">5K+</div>
-                <p class="text-lg text-gray-500 mt-2">Companies</p>
-            </div>
-            <div class="animate-fade-up animation-delay-300">
-                <div class="text-5xl font-black text-gray-900 dark:text-white">50K+</div>
-                <p class="text-lg text-gray-500 mt-2">Job Seekers</p>
-            </div>
-            <div class="animate-fade-up animation-delay-400">
-                <div class="text-5xl font-black text-gray-900 dark:text-white">95%</div>
-                <p class="text-lg text-gray-500 mt-2">Satisfaction</p>
+            <!-- Trust Indicators -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-slate-500 dark:text-slate-400">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-green-500"></i>
+                    <span>Secure & Verified</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-clock text-blue-500"></i>
+                    <span>Real-time Updates</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-users text-purple-500"></i>
+                    <span>50K+ Users</span>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Featured Jobs Section (Managed by Admin) -->
-<section class="py-20">
+<!-- Stats Section - Inspired by Stripe -->
+<section class="py-20 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 animate-fade-up">Featured Jobs</h2>
-            <p class="text-xl text-gray-600 dark:text-gray-400 animate-fade-up animation-delay-100">Hand-picked opportunities from top employers</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="group">
+                <div class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">10K+</div>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Active Jobs</p>
+            </div>
+            <div class="group">
+                <div class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">5K+</div>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Companies</p>
+            </div>
+            <div class="group">
+                <div class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">50K+</div>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Job Seekers</p>
+            </div>
+            <div class="group">
+                <div class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">95%</div>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Satisfaction</p>
+            </div>
         </div>
-        
+    </div>
+</section>
+
+<!-- Featured Jobs Section - Inspired by Awwwards -->
+<section class="py-20 bg-slate-50 dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-4">Featured Jobs</h2>
+            <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Hand-picked opportunities from top employers around the world</p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for job in featured_jobs %}
-            <div class="bg-white dark:bg-black rounded-2xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-up animation-delay-{{ forloop.counter|add:100 }}">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ job.title }}</h3>
-                        <p class="text-base text-indigo-600 dark:text-indigo-400 font-medium">{{ job.employer.company_name|default:job.employer.username }}</p>
+            <div class="card-modern p-8 hover-lift scroll-fade-in">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">{{ job.title }}</h3>
+                        <p class="text-base text-indigo-600 dark:text-indigo-400 font-semibold">{{ job.employer.company_name|default:job.employer.username }}</p>
                     </div>
-                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">{{ job.get_job_type_display }}</span>
+                    <span class="status-chip status-active ml-4 flex-shrink-0">{{ job.get_job_type_display }}</span>
                 </div>
-                <div class="space-y-2 mb-4">
-                    <p class="text-gray-600 dark:text-gray-400 text-base"><i class="fas fa-map-marker-alt text-indigo-500 w-5"></i> {{ job.location }}</p>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                        <i class="fas fa-map-marker-alt text-indigo-500 w-4"></i>
+                        <span class="text-sm">{{ job.location }}</span>
+                    </div>
                     {% if job.salary_min and job.salary_max %}
-                    <p class="text-gray-600 dark:text-gray-400 text-base"><i class="fas fa-money-bill-wave text-indigo-500 w-5"></i> ₦{{ job.salary_min|floatformat:0 }} - ₦{{ job.salary_max|floatformat:0 }}/year</p>
+                    <div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                        <i class="fas fa-money-bill-wave text-indigo-500 w-4"></i>
+                        <span class="text-sm">₦{{ job.salary_min|floatformat:0 }} - ₦{{ job.salary_max|floatformat:0 }}</span>
+                    </div>
                     {% endif %}
-                    <p class="text-gray-500 text-sm line-clamp-2 mt-2">{{ job.description|truncatewords:20 }}</p>
+                    <div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                        <i class="fas fa-clock text-indigo-500 w-4"></i>
+                        <span class="text-sm">{{ job.created_at|timesince }} ago</span>
+                    </div>
                 </div>
-                <a href="{% url 'job_detail' job.id %}" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-base hover:gap-3 transition-all duration-300">
-                    View Details <i class="fas fa-arrow-right text-sm"></i>
+
+                <a href="{% url 'job_detail' job.id %}" class="group inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-200">
+                    View Details
+                    <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform duration-200"></i>
                 </a>
             </div>
             {% empty %}
-            <div class="col-span-3 text-center py-12">
-                <p class="text-gray-500 text-lg">No featured jobs yet. Check back soon!</p>
+            <div class="col-span-3 text-center py-16">
+                <div class="w-16 h-16 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-briefcase text-2xl text-slate-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">No featured jobs yet</h3>
+                <p class="text-slate-600 dark:text-slate-400">Check back soon for exciting opportunities!</p>
             </div>
             {% endfor %}
         </div>
-        
-        {% if featured_jobs %}
+
         <div class="text-center mt-12">
-            <a href="{% url 'job_list' %}" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-lg hover:gap-3 transition-all duration-300">
-                Browse All Jobs <i class="fas fa-arrow-right"></i>
+            <a href="{% url 'job_list' %}" class="btn-primary inline-flex items-center gap-3">
+                <i class="fas fa-search"></i>
+                View All Jobs
             </a>
         </div>
-        {% endif %}
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-20 bg-gray-50 dark:bg-black/50">
+<!-- Features Section - Inspired by Figma -->
+<section class="py-20 bg-slate-50 dark:bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 animate-fade-up">Why choose JobBoard?</h2>
-            <p class="text-xl text-gray-600 dark:text-gray-400 animate-fade-up animation-delay-100">Everything you need to find your next opportunity</p>
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-4">Why choose JobBoard?</h2>
+            <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Everything you need to find your next opportunity in one beautiful platform</p>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white dark:bg-black rounded-2xl p-8 text-center border border-gray-200 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-up animation-delay-200">
-                <div class="w-20 h-20 bg-indigo-100 dark:bg-indigo-950 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                    <i class="fas fa-bolt text-3xl text-indigo-600"></i>
+            <div class="card-modern p-8 text-center hover-lift scroll-fade-in">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i class="fas fa-bolt text-2xl text-white"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Quick Apply</h3>
-                <p class="text-base text-gray-500 leading-relaxed">Apply to jobs in seconds with one-click application</p>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Lightning Fast</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Apply to jobs in seconds with our streamlined one-click application process</p>
             </div>
-            <div class="bg-white dark:bg-black rounded-2xl p-8 text-center border border-gray-200 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-up animation-delay-300">
-                <div class="w-20 h-20 bg-indigo-100 dark:bg-indigo-950 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                    <i class="fas fa-robot text-3xl text-indigo-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">AI Matching</h3>
-                <p class="text-base text-gray-500 leading-relaxed">Smart algorithm matches you with perfect roles</p>
-            </div>
-            <div class="bg-white dark:bg-black rounded-2xl p-8 text-center border border-gray-200 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-up animation-delay-400">
-                <div class="w-20 h-20 bg-indigo-100 dark:bg-indigo-950 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                    <i class="fas fa-chart-line text-3xl text-indigo-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Analytics</h3>
-                <p class="text-base text-gray-500 leading-relaxed">Track applications and get insights</p>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Trusted Companies -->
-<section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-gray-500 text-lg mb-10 animate-fade-up">Trusted by leading companies worldwide</p>
-        <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 animate-fade-up animation-delay-100">
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Google</span>
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Microsoft</span>
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Amazon</span>
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Meta</span>
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Netflix</span>
-            <span class="text-2xl font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">Apple</span>
+            <div class="card-modern p-8 text-center hover-lift scroll-fade-in">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i class="fas fa-robot text-2xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Smart Matching</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">AI-powered recommendations that match your skills with the perfect opportunities</p>
+            </div>
+
+            <div class="card-modern p-8 text-center hover-lift scroll-fade-in">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i class="fas fa-chart-line text-2xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Real-time Analytics</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Track your applications, get insights, and optimize your job search strategy</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="py-20 bg-gradient-to-r from-indigo-600 to-purple-600">
+<section class="py-16 bg-indigo-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-4xl font-black text-white mb-4 animate-fade-up">Ready to start your journey?</h2>
-        <p class="text-xl text-indigo-100 mb-10 animate-fade-up animation-delay-100">Join thousands of professionals who found their dream jobs</p>
-        <a href="{% url 'register' %}" class="inline-flex items-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-up animation-delay-200">
-            Sign Up Now <i class="fas fa-arrow-right text-base"></i>
+        <h2 class="text-2xl font-bold text-white mb-3">Ready to start your journey?</h2>
+        <p class="text-indigo-100 mb-6">Join thousands of professionals who found their dream jobs</p>
+        <a href="{% url 'register' %}" class="inline-block bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:shadow-lg transition">
+            Sign Up Now
         </a>
     </div>
 </section>
-
-<style>
-    @keyframes fade-up {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-up { animation: fade-up 0.6s ease-out forwards; opacity: 0; }
-    .animation-delay-100 { animation-delay: 0.1s; }
-    .animation-delay-200 { animation-delay: 0.2s; }
-    .animation-delay-300 { animation-delay: 0.3s; }
-    .animation-delay-400 { animation-delay: 0.4s; }
-    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-</style>
 {% endblock %}

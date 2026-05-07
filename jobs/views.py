@@ -4,10 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import models
 from django.core.paginator import Paginator
-from .models import CustomUser, Job, Application, Resume, TrustedCompany
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import CustomUser, Job, Application, Resume, SavedJob
+from .models import CustomUser, Job, Application, Resume, TrustedCompany, SavedJob
 
 
 def home(request):
@@ -202,14 +201,42 @@ def job_list(request):
             models.Q(employer__company_name__icontains=search_query)
         )
     
+    # Filter by job type
+    job_type = request.GET.get('job_type')
+    if job_type:
+        jobs = jobs.filter(job_type=job_type)
+    
+    # Filter by category
+    category = request.GET.get('category')
+    if category:
+        jobs = jobs.filter(category=category)
+    
+    # Filter by location
+    location = request.GET.get('location')
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+    
+    # Filter by minimum salary
+    salary_min = request.GET.get('salary_min')
+    if salary_min:
+        try:
+            salary_min = float(salary_min)
+            jobs = jobs.filter(salary_max__gte=salary_min)
+        except ValueError:
+            pass
+    
     # Pagination
     paginator = Paginator(jobs, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Get job types for the template
+    job_types = Job.JOB_TYPE_CHOICES
+    
     context = {
         'jobs': page_obj,
         'search_query': search_query,
+        'job_types': job_types,
     }
     return render(request, 'jobs/job_list.html', context)
 
@@ -364,24 +391,6 @@ def view_applications(request, job_id):
 
 
 @login_required
-def update_application_status(request, application_id):
-    """Update application status (employers only)"""
-    if request.user.user_type != 'employer':
-        return redirect('dashboard')
-    
-    application = get_object_or_404(Application, id=application_id, job__employer=request.user)
-    
-    if request.method == 'POST':
-        new_status = request.POST.get('status')
-        if new_status in dict(Application.STATUS_CHOICES):
-            application.status = new_status
-            application.save()
-            messages.success(request, f'Application status updated to {application.get_status_display()}')
-    
-    return redirect('view_applications', job_id=application.job.id)
-
-
-@login_required
 def manage_resumes(request):
     """Manage resumes for job seekers"""
     if request.user.user_type != 'job_seeker':
@@ -449,11 +458,49 @@ def contact(request):
 
 def pricing(request):
     return render(request, 'jobs/pricing.html')
-
-
+@login_required
 def browse_candidates(request):
-    return render(request, 'jobs/browse_candidates.html')
-
+    """Employers can browse candidates who applied to their jobs"""
+    if request.user.user_type != 'employer':
+        messages.error(request, 'Only employers can browse candidates.')
+        return redirect('dashboard')
+    
+    # Get all applications for employer's jobs
+    applications = Application.objects.filter(job__employer=request.user).select_related('job_seeker', 'job')
+    
+    # Filter by status
+    status_filter = request.GET.get('status')
+    if status_filter:
+        applications = applications.filter(status=status_filter)
+    
+    # Filter by job
+    job_filter = request.GET.get('job')
+    if job_filter and job_filter.isdigit():
+        applications = applications.filter(job_id=int(job_filter))
+    
+    # Search by candidate name (only on existing fields)
+    search_query = request.GET.get('search')
+    if search_query and search_query != 'None':
+        applications = applications.filter(
+            models.Q(job_seeker__first_name__icontains=search_query) |
+            models.Q(job_seeker__last_name__icontains=search_query) |
+            models.Q(job_seeker__username__icontains=search_query) |
+            models.Q(job_seeker__location__icontains=search_query) |
+            models.Q(job_seeker__email__icontains=search_query)
+        )
+    
+    # Get unique jobs for filter dropdown
+    jobs = Job.objects.filter(employer=request.user)
+    
+    context = {
+        'applications': applications,
+        'jobs': jobs,
+        'status_filter': status_filter,
+        'job_filter': job_filter,
+        'search_query': search_query,
+        'status_choices': Application.STATUS_CHOICES,
+    }
+    return render(request, 'jobs/browse_candidates.html', context)
 
 def career_advice(request):
     return render(request, 'jobs/career_advice.html')
@@ -604,14 +651,13 @@ def send_welcome_email(user):
     except Exception as e:
         print(f"Welcome email error: {e}")
         return False
+    
 
-
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse
-
-def create_admin(request):
-    User = get_user_model()
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('Ade', 'adedirancfx@gmail.com', 'Adeseun')
-        return HttpResponse("Superuser created! Username: Ade, Password: Adeseun")
-    return HttpResponse("Superuser already exists!")
+@login_required
+def view_resume(request, application_id):
+    if request.user.user_type != 'employer':
+        messages.error(request, 'Only employers can view resumes.')
+        return redirect('dashboard')
+    
+    application = get_object_or_404(Application, id=application_id, job__employer=request.user)
+    return redirect(application.resume.url)

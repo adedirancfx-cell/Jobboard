@@ -31,17 +31,13 @@ urlpatterns = [
     # Static pages
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('pricing/', views.pricing, name='pricing'),
     path('browse-candidates/', views.browse_candidates, name='browse_candidates'),
     path('career-advice/', views.career_advice, name='career_advice'),
-    path('salary-guide/', views.salary_guide, name='salary_guide'),
-    path('interview-tips/', views.interview_tips, name='interview_tips'),
-    path('recruitment-solutions/', views.recruitment_solutions, name='recruitment_solutions'),
     # Add these to your urlpatterns
     path('save-job/<int:job_id>/', views.save_job, name='save_job'),
     path('saved-jobs/', views.saved_jobs, name='saved_jobs'),
     path('remove-saved-job/<int:job_id>/', views.remove_saved_job, name='remove_saved_job'),
-    path('create-admin/', views.create_admin, name='create_admin'),
+    path('view-resume/<int:application_id>/', views.view_resume, name='view_resume'),
 ]
 
 if settings.DEBUG:

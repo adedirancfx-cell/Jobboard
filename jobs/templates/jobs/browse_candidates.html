@@ -3,83 +3,171 @@
 {% block title %}Browse Candidates - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Browse Candidates</h1>
-        <p class="text-gray-600 dark:text-gray-400">Find the perfect talent for your company</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <!-- Header -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">Browse Candidates</h1>
+        <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400">Review and manage candidates who applied to your jobs</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Candidate 1 -->
-        <div class="card p-6 job-card-hover">
-            <div class="flex items-center gap-4 mb-4">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="w-16 h-16 rounded-full object-cover">
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">John Doe</h3>
-                    <p class="text-sm text-primary-600 dark:text-primary-400">Senior Software Engineer</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Lagos, Nigeria</p>
-                </div>
+    <!-- Filters -->
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-800 p-5 mb-8">
+        <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300 font-semibold text-sm mb-2">
+                    <i class="fas fa-search text-indigo-500 mr-1"></i> Search
+                </label>
+                <input type="text" name="search" value="{{ search_query|default:'' }}" placeholder="Name, email, or location..." 
+                       class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800">
             </div>
-            <div class="flex flex-wrap gap-1 mb-4">
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Python</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Django</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">React</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">AWS</span>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300 font-semibold text-sm mb-2">
+                    <i class="fas fa-briefcase text-indigo-500 mr-1"></i> Job
+                </label>
+                <select name="job" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800">
+                    <option value="">All Jobs</option>
+                    {% for job in jobs %}
+                    <option value="{{ job.id }}" {% if job_filter == job.id|stringformat:"s" %}selected{% endif %}>{{ job.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <div class="flex justify-between items-center pt-3 border-t border-gray-100 dark:border-gray-800">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">Available</span>
-                <button class="btn-primary text-sm py-1.5 px-3">View Profile</button>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300 font-semibold text-sm mb-2">
+                    <i class="fas fa-flag-checkered text-indigo-500 mr-1"></i> Status
+                </label>
+                <select name="status" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800">
+                    <option value="">All Status</option>
+                    {% for value, label in status_choices %}
+                    <option value="{{ value }}" {% if status_filter == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </div>
-        
-        <!-- Candidate 2 -->
-        <div class="card p-6 job-card-hover">
-            <div class="flex items-center gap-4 mb-4">
-                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jane Smith" class="w-16 h-16 rounded-full object-cover">
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Jane Smith</h3>
-                    <p class="text-sm text-primary-600 dark:text-primary-400">UX/UI Designer</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Abuja, Nigeria</p>
-                </div>
+            <div class="flex items-end">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg font-semibold transition shadow-md">
+                    <i class="fas fa-filter mr-2"></i> Apply Filters
+                </button>
             </div>
-            <div class="flex flex-wrap gap-1 mb-4">
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Figma</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Adobe XD</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Sketch</span>
-            </div>
-            <div class="flex justify-between items-center pt-3 border-t border-gray-100 dark:border-gray-800">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">Interviewing</span>
-                <button class="btn-primary text-sm py-1.5 px-3">View Profile</button>
-            </div>
-        </div>
-        
-        <!-- Candidate 3 -->
-        <div class="card p-6 job-card-hover">
-            <div class="flex items-center gap-4 mb-4">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Brown" class="w-16 h-16 rounded-full object-cover">
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Michael Brown</h3>
-                    <p class="text-sm text-primary-600 dark:text-primary-400">Financial Analyst</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Port Harcourt, Nigeria</p>
-                </div>
-            </div>
-            <div class="flex flex-wrap gap-1 mb-4">
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Excel</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">SQL</span>
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded">Tableau</span>
-            </div>
-            <div class="flex justify-between items-center pt-3 border-t border-gray-100 dark:border-gray-800">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">Available</span>
-                <button class="btn-primary text-sm py-1.5 px-3">View Profile</button>
-            </div>
-        </div>
+        </form>
     </div>
     
-    <div class="text-center mt-10">
-        <p class="text-gray-500 dark:text-gray-400 text-sm">More candidates coming soon. Premium employers get access to all qualified candidates.</p>
-        <a href="{% url 'pricing' %}" class="text-primary-600 hover:text-primary-700 text-sm inline-flex items-center mt-2">
-            Upgrade to Pro <i class="fas fa-arrow-right ml-1"></i>
+    <!-- Results Count -->
+    <div class="mb-5">
+        <p class="text-gray-600 dark:text-gray-400">
+            Found <span class="font-bold text-indigo-600 text-lg">{{ applications.count }}</span> candidates
+        </p>
+    </div>
+    
+    <!-- Candidates List -->
+    {% if applications %}
+    <div class="space-y-4">
+        {% for application in applications %}
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <div class="p-5 lg:p-6">
+                <div class="flex flex-col md:flex-row justify-between md:items-start gap-4">
+                    <!-- Candidate Info -->
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-3">
+                            {% if application.job_seeker.profile_picture and application.job_seeker.profile_picture.url %}
+                                <img src="{{ application.job_seeker.profile_picture.url }}" alt="{{ application.job_seeker.get_full_name }}" class="w-14 h-14 rounded-full object-cover border-2 border-indigo-500">
+                            {% else %}
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+                                    {{ application.job_seeker.username|make_list|first|upper }}
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h2 class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{{ application.job_seeker.get_full_name|default:application.job_seeker.username }}</h2>
+                                <p class="text-indigo-600 dark:text-indigo-400 text-sm lg:text-base font-medium">Applied for: {{ application.job.title }}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                            {% if application.job_seeker.location %}
+                            <p class="text-gray-600 dark:text-gray-400 text-sm lg:text-base">
+                                <i class="fas fa-map-marker-alt text-indigo-400 mr-2"></i> {{ application.job_seeker.location }}
+                            </p>
+                            {% endif %}
+                            <p class="text-gray-600 dark:text-gray-400 text-sm lg:text-base">
+                                <i class="fas fa-calendar-alt text-indigo-400 mr-2"></i> Applied: {{ application.applied_at|date:"M d, Y" }}
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm lg:text-base">
+                                <i class="fas fa-envelope text-indigo-400 mr-2"></i> {{ application.job_seeker.email }}
+                            </p>
+                            {% if application.job_seeker.phone_number %}
+                            <p class="text-gray-600 dark:text-gray-400 text-sm lg:text-base">
+                                <i class="fas fa-phone text-indigo-400 mr-2"></i> {{ application.job_seeker.phone_number }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Bio -->
+                        {% if application.job_seeker.bio %}
+                        <p class="text-gray-600 dark:text-gray-400 text-sm lg:text-base mb-3 line-clamp-2">
+                            {{ application.job_seeker.bio|truncatewords:30 }}
+                        </p>
+                        {% endif %}
+                        
+                        <!-- Cover Letter Preview -->
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-3">
+                            <p class="text-gray-500 dark:text-gray-400 text-xs mb-1">
+                                <i class="fas fa-envelope-open-text text-indigo-400 mr-1"></i> Cover Letter:
+                            </p>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm lg:text-base line-clamp-2">
+                                {{ application.cover_letter|truncatewords:25 }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex flex-row md:flex-col gap-2">
+                        <span class="px-3 py-1 rounded-full text-sm font-semibold text-center
+                            {% if application.status == 'pending' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300
+                            {% elif application.status == 'reviewed' %}bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300
+                            {% elif application.status == 'interview' %}bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300
+                            {% elif application.status == 'accepted' %}bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300
+                            {% elif application.status == 'rejected' %}bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300
+                            {% endif %}">
+                            {{ application.get_status_display }}
+                        </span>
+                        <div class="flex gap-2 mt-2">
+                            <a href="{{ application.resume.url }}" target="_blank" class="px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-file-pdf text-red-500 mr-1"></i> Resume
+                            </a>
+                            <form method="POST" action="{% url 'update_application_status' application.id %}" class="inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="reviewed">
+                                <button type="submit" class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition">
+                                    Review
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% else %}
+    <div class="text-center py-16 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-full mb-4">
+            <i class="fas fa-users text-2xl text-indigo-600 dark:text-indigo-400"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No Candidates Yet</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">When job seekers apply to your jobs, they'll appear here</p>
+        <a href="{% url 'post_job' %}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition">
+            <i class="fas fa-briefcase mr-2"></i> Post a Job
         </a>
     </div>
+    {% endif %}
 </div>
+
+<style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
 {% endblock %}

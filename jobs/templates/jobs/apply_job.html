@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="card p-6 md:p-8">
+    <div class="card p-6 md:p-8 scroll-fade-in">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">Apply for {{ job.title }}</h1>
             <p class="text-primary-600 dark:text-primary-400">{{ job.employer.company_name|default:job.employer.username }}</p>
@@ -18,7 +18,7 @@
                 <textarea name="cover_letter" rows="6" required 
                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
                           placeholder="Why are you a good fit for this role?"></textarea>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" id="char-counter">1000 characters remaining</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" id="coverLetterCount">1000 characters remaining</p>
             </div>
             
             {% if has_resumes %}
@@ -63,22 +63,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    const coverLetter = document.querySelector('textarea[name="cover_letter"]');
-    if (coverLetter) {
-        coverLetter.addEventListener('input', function() {
-            const remaining = 1000 - this.value.length;
-            const counter = document.getElementById('char-counter');
-            if (counter) {
-                counter.textContent = `${remaining} characters remaining`;
-                if (remaining < 0) {
-                    counter.classList.add('text-red-500');
-                } else {
-                    counter.classList.remove('text-red-500');
-                }
-            }
-        });
-    }
-</script>
 {% endblock %}

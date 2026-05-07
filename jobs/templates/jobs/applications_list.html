@@ -16,7 +16,7 @@
     <!-- Applications List -->
     <div class="space-y-4">
         {% for application in applications %}
-        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+        <div class="scroll-fade-in bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
             <div class="p-6">
                 <div class="flex justify-between items-start flex-wrap gap-4 mb-4">
                     <div>
@@ -85,23 +85,4 @@
     </div>
 </div>
 
-<script>
-    // Add animation to cards on scroll
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    document.querySelectorAll('.bg-white').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.5s ease';
-        observer.observe(el);
-    });
-</script>
 {% endblock %}

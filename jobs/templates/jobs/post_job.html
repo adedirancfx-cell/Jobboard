@@ -3,85 +3,127 @@
 {% block title %}Post a Job - JobBoard{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="card p-8">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Post a Job</h1>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">Fill in the details to attract the right candidates</p>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 lg:px-8 py-6">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-briefcase text-2xl text-white"></i>
+                <h1 class="text-2xl lg:text-3xl font-bold text-white">Post a Job</h1>
+            </div>
+            <p class="text-indigo-100 text-base lg:text-lg mt-2 ml-10">Fill in the details to attract the right candidates</p>
+        </div>
         
-        <form method="POST" class="space-y-5">
-            {% csrf_token %}
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job title *</label>
-                <input type="text" name="title" required 
-                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                       placeholder="e.g., Senior Software Engineer">
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location *</label>
-                <input type="text" name="location" required 
-                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                       placeholder="e.g., Lagos, Nigeria or Remote">
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Form -->
+        <div class="p-6 lg:p-8">
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Job Title -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Min salary (₦)</label>
-                    <input type="number" name="salary_min" step="10000" 
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                           placeholder="e.g., 150000">
+                    <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                        <i class="fas fa-tag text-indigo-500 mr-2"></i> Job Title <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="title" required 
+                           class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-200"
+                           placeholder="e.g., Senior Software Engineer">
+                    <p class="text-gray-500 text-sm mt-1 ml-6">Be specific and descriptive</p>
                 </div>
+                
+                <!-- Location -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Max salary (₦)</label>
-                    <input type="number" name="salary_max" step="10000" 
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                           placeholder="e.g., 300000">
+                    <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                        <i class="fas fa-map-marker-alt text-indigo-500 mr-2"></i> Location <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="location" required 
+                           class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-200"
+                           placeholder="e.g., Lagos, Nigeria or Remote">
                 </div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Salary Range -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                            <i class="fas fa-arrow-down text-green-500 mr-2"></i> Minimum Salary (₦)
+                        </label>
+                        <input type="number" name="salary_min" step="10000" 
+                               class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="e.g., 150,000">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                            <i class="fas fa-arrow-up text-green-500 mr-2"></i> Maximum Salary (₦)
+                        </label>
+                        <input type="number" name="salary_max" step="10000" 
+                               class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="e.g., 300,000">
+                    </div>
+                </div>
+                
+                <!-- Job Type & Category -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                            <i class="fas fa-clock text-indigo-500 mr-2"></i> Job Type
+                        </label>
+                        <select name="job_type" class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                            <option value="full_time"><i class="fas fa-briefcase"></i> Full Time</option>
+                            <option value="part_time"><i class="fas fa-clock"></i> Part Time</option>
+                            <option value="contract"><i class="fas fa-file-signature"></i> Contract</option>
+                            <option value="remote"><i class="fas fa-home"></i> Remote</option>
+                            <option value="internship"><i class="fas fa-graduation-cap"></i> Internship</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                            <i class="fas fa-folder-open text-indigo-500 mr-2"></i> Category
+                        </label>
+                        <select name="category" class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                            <option value="tech"><i class="fas fa-code"></i> Technology</option>
+                            <option value="finance"><i class="fas fa-chart-line"></i> Finance</option>
+                            <option value="healthcare"><i class="fas fa-heartbeat"></i> Healthcare</option>
+                            <option value="education"><i class="fas fa-graduation-cap"></i> Education</option>
+                            <option value="marketing"><i class="fas fa-chart-simple"></i> Marketing</option>
+                            <option value="design"><i class="fas fa-palette"></i> Design</option>
+                            <option value="sales"><i class="fas fa-chart-bar"></i> Sales</option>
+                            <option value="other"><i class="fas fa-ellipsis-h"></i> Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Job Description -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job type</label>
-                    <select name="job_type" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
-                        <option value="full_time">Full Time</option>
-                        <option value="part_time">Part Time</option>
-                        <option value="contract">Contract</option>
-                        <option value="remote">Remote</option>
-                        <option value="internship">Internship</option>
-                    </select>
+                    <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                        <i class="fas fa-align-left text-indigo-500 mr-2"></i> Job Description <span class="text-red-500">*</span>
+                    </label>
+                    <textarea name="description" rows="6" required 
+                              class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-y"
+                              placeholder="Describe the role, responsibilities, day-to-day tasks, and what the candidate will be doing..."></textarea>
+                    <p class="text-gray-500 text-sm mt-1 ml-7">Include key responsibilities and expectations</p>
                 </div>
+                
+                <!-- Requirements -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
-                    <select name="category" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white">
-                        <option value="tech">Technology</option>
-                        <option value="finance">Finance</option>
-                        <option value="healthcare">Healthcare</option>
-                        <option value="education">Education</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="design">Design</option>
-                        <option value="sales">Sales</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label class="block text-gray-700 dark:text-gray-300 font-semibold text-base lg:text-lg mb-2">
+                        <i class="fas fa-check-circle text-indigo-500 mr-2"></i> Requirements <span class="text-red-500">*</span>
+                    </label>
+                    <textarea name="requirements" rows="6" required 
+                              class="w-full px-4 py-3 text-base lg:text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-y"
+                              placeholder="List required skills, experience, education, certifications..."></textarea>
+                    <p class="text-gray-500 text-sm mt-1 ml-7">List must-have and nice-to-have qualifications</p>
                 </div>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description *</label>
-                <textarea name="description" rows="5" required 
-                          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                          placeholder="Describe the role, responsibilities, and what the candidate will do..."></textarea>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Requirements *</label>
-                <textarea name="requirements" rows="5" required 
-                          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
-                          placeholder="List required skills, experience, education..."></textarea>
-            </div>
-            
-            <button type="submit" class="btn-primary w-full py-2.5 text-base bg-indigo-600">Post Job</button>
-        </form>
+                
+                <!-- Submit Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button type="submit" class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-xl font-bold text-base lg:text-lg transition-all duration-300 shadow-md hover:shadow-lg">
+                        <i class="fas fa-paper-plane mr-2"></i> Post Job
+                    </button>
+                    <a href="{% url 'my_jobs' %}" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold text-base lg:text-lg text-center transition-all duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

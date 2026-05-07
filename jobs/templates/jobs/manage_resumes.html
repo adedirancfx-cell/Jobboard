@@ -6,13 +6,13 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">My Resumes</h1>
-        <button onclick="toggleUploadForm()" class="btn-primary text-sm inline-flex items-center">
-            <i class="fas fa-plus mr-1"></i> Upload Resume
+        <button type="button" data-toggle-upload-form data-open-text="Upload Resume" class="btn-primary text-sm inline-flex items-center">
+            <i class="fas fa-plus mr-1"></i> <span class="toggle-label">Upload Resume</span>
         </button>
     </div>
     
     <!-- Upload Form -->
-    <div id="uploadForm" class="card p-6 mb-6 hidden">
+    <div id="uploadFormBlock" class="card p-6 mb-6 hidden">
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upload New Resume</h2>
         <form method="POST" enctype="multipart/form-data" class="space-y-4">
             {% csrf_token %}
@@ -34,7 +34,7 @@
             </div>
             <div class="flex gap-3">
                 <button type="submit" class="btn-primary">Upload</button>
-                <button type="button" onclick="toggleUploadForm()" class="btn-secondary">Cancel</button>
+                <button type="button" data-toggle-upload-form class="btn-secondary">Cancel</button>
             </div>
         </form>
     </div>
@@ -42,7 +42,7 @@
     <!-- Resumes List -->
     <div class="space-y-4">
         {% for resume in resumes %}
-        <div class="card p-6 {% if resume.is_primary %}border-l-4 border-l-primary-500{% endif %}">
+        <div class="card p-6 scroll-fade-in {% if resume.is_primary %}border-l-4 border-l-primary-500{% endif %}">
             <div class="flex flex-wrap justify-between items-start gap-4">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 mb-1">
@@ -75,18 +75,11 @@
         <div class="card p-12 text-center">
             <i class="fas fa-file-alt text-5xl text-gray-400 mb-4"></i>
             <p class="text-gray-500 dark:text-gray-400 mb-4">You haven't uploaded any resumes yet.</p>
-            <button onclick="toggleUploadForm()" class="btn-primary inline-flex items-center">
-                <i class="fas fa-upload mr-2"></i> Upload Your First Resume
+            <button type="button" data-toggle-upload-form data-open-text="Upload Your First Resume" class="btn-primary inline-flex items-center">
+                <i class="fas fa-upload mr-2"></i> <span class="toggle-label">Upload Your First Resume</span>
             </button>
         </div>
         {% endfor %}
     </div>
 </div>
-
-<script>
-    function toggleUploadForm() {
-        const form = document.getElementById('uploadForm');
-        form.classList.toggle('hidden');
-    }
-</script>
 {% endblock %}
